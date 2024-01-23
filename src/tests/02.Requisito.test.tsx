@@ -1,10 +1,9 @@
-import React from 'react';
-import { render } from '@testing-library/react';
+import { RenderResult, render } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import Login from '../pages/Login';
 
 describe('Login component', () => {
-  let component;
+  let component: RenderResult;
 
   beforeEach(() => {
     component = render(

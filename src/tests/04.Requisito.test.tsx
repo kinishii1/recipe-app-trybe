@@ -1,14 +1,13 @@
-import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, RenderResult } from '@testing-library/react';
 
 import { MemoryRouter } from 'react-router-dom';
 import Login from '../pages/Login';
 
 describe('Login component validation', () => {
-  let component;
-  let emailInput;
-  let submitButton;
-  let passwordInput;
+  let component: RenderResult;
+  let emailInput: Node | Window;
+  let submitButton: Node | Window;
+  let passwordInput: Node | Window;
 
   beforeEach(() => {
     component = render(
@@ -39,5 +38,6 @@ describe('Login component validation', () => {
     fireEvent.change(passwordInput, { target: { value: 'validpassword' } });
 
     expect(submitButton).not.toBeDisabled();
+    fireEvent.click(submitButton);
   });
 });
