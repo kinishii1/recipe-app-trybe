@@ -6,7 +6,7 @@ type ActionType = {
 };
  type StateType = object;
 
-export const INITIAL_STATE: StateType = { };
+export const INITIAL_STATE: StateType = {};
 
 // LEMBRAR DE TIPAR//
 function drinkReducer(state = INITIAL_STATE, action: ActionType) {
