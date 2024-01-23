@@ -19,14 +19,14 @@ function Header({
       </Link>
 
       {withSearchIcons && (
-        <button
-          onClick={ () => setShowSearchBar(!showSearchBar) }
-        >
+        <button onClick={ () => setShowSearchBar(!showSearchBar) }>
           <img data-testid="search-top-btn" src={ search } alt="search" />
         </button>
       )}
 
-      {showSearchBar && <SearchBar />}
+      {showSearchBar && (
+        <SearchBar isDrink={ title === 'Drinks' } />
+      )}
       <h1 data-testid="page-title">{title}</h1>
     </div>
   );
