@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function Login() {
@@ -33,7 +33,10 @@ function Login() {
   };
 
   return (
-    <form onSubmit={ (e) => handleSubmit(e) }>
+    <form
+      data-testid="login-form"
+      onSubmit={ (e) => handleSubmit(e) }
+    >
       <input
         type="email"
         data-testid="email-input"
