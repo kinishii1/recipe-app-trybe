@@ -21,8 +21,8 @@ describe('Recipe in progress Meal', () => {
   it('testing all checkboxes', async () => {
     render(
       <MemoryRouter>
-        <RecipeInProgress isDrink={false} />
-      </MemoryRouter>
+        <RecipeInProgress isDrink={ false } />
+      </MemoryRouter>,
     );
     const checkboxes = await screen.findAllByRole('checkbox');
     expect(checkboxes).toHaveLength(13);
@@ -33,52 +33,52 @@ describe('Recipe in progress Meal', () => {
   it('testing addFavorite button', async () => {
     render(
       <MemoryRouter>
-        <RecipeInProgress isDrink={false} />
-      </MemoryRouter>
+        <RecipeInProgress isDrink={ false } />
+      </MemoryRouter>,
     );
     const favoriteBtn = screen.getByTestId('favorite-btn');
     await userEvent.click(favoriteBtn);
     expect(favoriteBtn).toHaveAttribute(
       'src',
-      '/src/images/blackHeartIcon.svg'
+      '/src/images/blackHeartIcon.svg',
     );
     await userEvent.click(favoriteBtn);
     expect(favoriteBtn).toHaveAttribute(
       'src',
-      '/src/images/whiteHeartIcon.svg'
+      '/src/images/whiteHeartIcon.svg',
     );
   });
   it('testing addFavorite button with already favorite', async () => {
     localStorage.setItem(
       'favoriteRecipes',
-      JSON.stringify([{ id: '52771', type: 'meal' }])
+      JSON.stringify([{ id: '52771', type: 'meal' }]),
     );
     render(
       <MemoryRouter>
-        <RecipeInProgress isDrink={false} />
-      </MemoryRouter>
+        <RecipeInProgress isDrink={ false } />
+      </MemoryRouter>,
     );
     const favoriteBtn = screen.getByTestId('favorite-btn');
     await userEvent.click(favoriteBtn);
     expect(favoriteBtn).toHaveAttribute(
       'src',
-      '/src/images/blackHeartIcon.svg'
+      '/src/images/blackHeartIcon.svg',
     );
     await userEvent.click(favoriteBtn);
     expect(favoriteBtn).toHaveAttribute(
       'src',
-      '/src/images/whiteHeartIcon.svg'
+      '/src/images/whiteHeartIcon.svg',
     );
   });
   it('testing finish recipe button', async () => {
     render(
       <MemoryRouter>
-        <RecipeInProgress isDrink={false} />
-      </MemoryRouter>
+        <RecipeInProgress isDrink={ false } />
+      </MemoryRouter>,
     );
     const allCheckboxes = await screen.findAllByRole('checkbox');
     await Promise.all(
-      allCheckboxes.map((checkbox) => userEvent.click(checkbox))
+      allCheckboxes.map((checkbox) => userEvent.click(checkbox)),
     );
     const finishBtn = screen.getByTestId('finish-recipe-btn');
     await userEvent.click(finishBtn);
@@ -98,11 +98,11 @@ describe('Recipe in progress Drink', () => {
     render(
       <MemoryRouter>
         <RecipeInProgress isDrink />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
     const allCheckboxes = await screen.findAllByRole('checkbox');
     await Promise.all(
-      allCheckboxes.map((checkbox) => userEvent.click(checkbox))
+      allCheckboxes.map((checkbox) => userEvent.click(checkbox)),
     );
     const finishBtn = screen.getByTestId('finish-recipe-btn');
     await userEvent.click(finishBtn);
