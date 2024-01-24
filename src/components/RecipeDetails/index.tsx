@@ -167,7 +167,7 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
           data-testid="start-recipe-btn"
           onClick={ handleClick }
         >
-          {inProgressRecipes && inProgressRecipes.drinks[id as string]
+          {inProgressRecipes && inProgressRecipes?.drinks[id as string]
             ? 'Continue Recipe'
             : 'Start Recipe'}
         </button>

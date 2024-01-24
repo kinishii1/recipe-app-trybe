@@ -4,7 +4,8 @@ export const useShare = (): any => {
   const [copyStatus, setCopyStatus] = useState<string>('');
 
   const handleShareClick = async () => {
-    const url = window.location.href;
+    let url = window.location.href;
+    url = url.replace(/\/in-progress$/, '');
     try {
       await navigator.clipboard.writeText(url);
       setCopyStatus('Link copied!');
