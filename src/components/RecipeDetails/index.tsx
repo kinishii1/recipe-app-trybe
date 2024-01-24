@@ -8,6 +8,19 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
   const { id } = useParams<{ id: string }>();
   const [recipe, setRecipe] = useState<any>({});
   const [recomendations, setRecomendations] = useState<any>([]);
+  const [copyStatus, setCopyStatus] = useState<string>('');
+
+  const handleShareClick = async () => {
+    const url = window.location.href;
+    try {
+      await navigator.clipboard.writeText(url);
+      setCopyStatus('Link copied!');
+      setTimeout(() => setCopyStatus(''), 3000);
+    } catch (err) {
+      setCopyStatus('Failed to copy link');
+    }
+  };
+
   const navigate = useNavigate();
 
   const inProgressRecipes = JSON.parse(
@@ -63,10 +76,23 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
     return (
       <div>
         <h1>Recipe Details</h1>
-        <button className="share-btn" type="button" data-testid="share-btn">
-          <img src={ shareIcon } alt="share" />
+        <button
+          className="share-btn"
+          type="button"
+          data-testid="share-btn"
+          onClick={ handleShareClick }
+        >
+          {copyStatus !== '' ? (
+            <p>{copyStatus}</p>
+          ) : (
+            <img src={ shareIcon } alt="share" />
+          )}
         </button>
-        <button className="favorite-btn" type="button" data-testid="favorite-btn">
+        <button
+          className="favorite-btn"
+          type="button"
+          data-testid="favorite-btn"
+        >
           <img src={ blackHeartIcon } alt="share" />
         </button>
         <img src={ recipe.strDrinkThumb } alt="" data-testid="recipe-photo" />
@@ -123,8 +149,17 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
   return (
     <div>
       <h1>Recipe Details</h1>
-      <button className="share-btn" type="button" data-testid="share-btn">
-        <img src={ shareIcon } alt="share" />
+      <button
+        className="share-btn"
+        type="button"
+        data-testid="share-btn"
+        onClick={ handleShareClick }
+      >
+        {copyStatus !== '' ? (
+          <p>{copyStatus}</p>
+        ) : (
+          <img src={ shareIcon } alt="share" />
+        )}
       </button>
       <button className="favorite-btn" type="button" data-testid="favorite-btn">
         <img src={ blackHeartIcon } alt="share" />
