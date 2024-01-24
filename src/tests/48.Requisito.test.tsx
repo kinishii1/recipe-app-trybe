@@ -1,10 +1,13 @@
 import userEvent from '@testing-library/user-event';
-import { vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { MemoryRouter, Route, Routes } from 'react-router-dom';
-import { DrinkData, MealCategoriesData, MealData } from './mocks/data';
-import RecipeDetails from '../components/RecipeDetails';
+import { MemoryRouter } from 'react-router-dom';
 import DoneRecipes from '../components/DoneRecipes';
+
+enum TestIds {
+  ALL_BTN = 'filter-by-all-btn',
+  MEAL_BTN = 'filter-by-meal-btn',
+  DRINK_BTN = 'filter-by-drink-btn',
+}
 
 describe('done recipes Meals', () => {
   beforeEach(() => {
@@ -24,15 +27,15 @@ describe('done recipes Meals', () => {
   });
 
   afterEach(() => localStorage.clear());
-  it('test filter buttons', async () => {
+  it('test filter buttons works', async () => {
     render(
       <MemoryRouter>
         <DoneRecipes />
       </MemoryRouter>,
     );
-    const allButton = screen.getByTestId('filter-by-all-btn');
-    const foodButton = screen.getByTestId('filter-by-meal-btn');
-    const drinkButton = screen.getByTestId('filter-by-drink-btn');
+    const allButton = screen.getByTestId(TestIds.ALL_BTN);
+    const foodButton = screen.getByTestId(TestIds.MEAL_BTN);
+    const drinkButton = screen.getByTestId(TestIds.DRINK_BTN);
 
     await userEvent.click(allButton);
     await userEvent.click(foodButton);
@@ -63,9 +66,9 @@ describe('done recipes drink', () => {
         <DoneRecipes />
       </MemoryRouter>,
     );
-    const allButton = screen.getByTestId('filter-by-all-btn');
-    const foodButton = screen.getByTestId('filter-by-meal-btn');
-    const drinkButton = screen.getByTestId('filter-by-drink-btn');
+    const allButton = screen.getByTestId(TestIds.ALL_BTN);
+    const foodButton = screen.getByTestId(TestIds.MEAL_BTN);
+    const drinkButton = screen.getByTestId(TestIds.DRINK_BTN);
 
     await userEvent.click(allButton);
     await userEvent.click(foodButton);
@@ -79,7 +82,6 @@ describe('done recipes drink', () => {
     );
     const shareButton = screen.getByTestId('0-horizontal-share-btn');
     await userEvent.click(shareButton);
-    
   });
 });
 
@@ -90,9 +92,9 @@ describe('done recipes without data in localstorage', () => {
         <DoneRecipes />
       </MemoryRouter>,
     );
-    const allButton = screen.getByTestId('filter-by-all-btn');
-    const foodButton = screen.getByTestId('filter-by-meal-btn');
-    const drinkButton = screen.getByTestId('filter-by-drink-btn');
+    const allButton = screen.getByTestId(TestIds.ALL_BTN);
+    const foodButton = screen.getByTestId(TestIds.MEAL_BTN);
+    const drinkButton = screen.getByTestId(TestIds.DRINK_BTN);
 
     await userEvent.click(allButton);
     await userEvent.click(foodButton);
