@@ -4,47 +4,16 @@ import './styles.css';
 import shareIcon from '../../images/shareIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import { formatFavorite } from '../../helpers/formatFavorite';
+import { useShare } from '../../hooks/useShare';
 
 function RecipeDetails({ isDrink }: { isDrink: boolean }) {
   const { id } = useParams<{ id: string }>();
   const [recipe, setRecipe] = useState<any>({});
   const [recomendations, setRecomendations] = useState<any>([]);
-  const [copyStatus, setCopyStatus] = useState<string>('');
+  const [isFavorite, setIsFavorite] = useState<boolean>(false);
+  const { handleShareClick, copyStatus } = useShare();
   const navigate = useNavigate();
-
-  const handleShareClick = async () => {
-    const url = window.location.href;
-    try {
-      await navigator.clipboard.writeText(url);
-      setCopyStatus('Link copied!');
-      setTimeout(() => setCopyStatus(''), 3000);
-    } catch (err) {
-      setCopyStatus('Failed to copy link');
-    }
-  };
-
-  const handleFavoriteClick = () => {
-    const favoriteRecipes = JSON.parse(
-      localStorage.getItem('favoriteRecipes') as string,
-    );
-    const newFavorite = {
-      id: recipe.idMeal || recipe.idDrink,
-      type: isDrink ? 'drink' : 'meal',
-      nationality: recipe.strArea || '',
-      category: recipe.strCategory,
-      alcoholicOrNot: recipe.strAlcoholic || '',
-      name: recipe.strMeal || recipe.strDrink,
-      image: recipe.strMealThumb || recipe.strDrinkThumb,
-    };
-    if (favoriteRecipes) {
-      localStorage.setItem(
-        'favoriteRecipes',
-        JSON.stringify([...favoriteRecipes, newFavorite]),
-      );
-    } else {
-      localStorage.setItem('favoriteRecipes', JSON.stringify([newFavorite]));
-    }
-  };
 
   const inProgressRecipes = JSON.parse(
     localStorage.getItem('inProgressRecipes') as string,
@@ -53,6 +22,41 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
   const favoriteRecipes = JSON.parse(
     localStorage.getItem('favoriteRecipes') as string,
   );
+
+  const addFavorite = (newFavorite: any) => {
+    if (!favoriteRecipes) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([newFavorite]));
+      return;
+    }
+    const newFavoriteRecipes = [...favoriteRecipes, newFavorite];
+    localStorage.setItem('favoriteRecipes', JSON.stringify(newFavoriteRecipes));
+  };
+
+  const removeFavorite = (newFavorite: any) => {
+    const newFavoriteRecipes = favoriteRecipes.filter(
+      (favorite: any) => favorite.id !== newFavorite.id,
+    );
+    localStorage.setItem('favoriteRecipes', JSON.stringify(newFavoriteRecipes));
+  };
+
+  const handleFavoriteClick = () => {
+    const newFavorite = formatFavorite(recipe, isDrink);
+    if (isFavorite) {
+      removeFavorite(newFavorite);
+      setIsFavorite(false);
+      return;
+    }
+    addFavorite(newFavorite);
+    setIsFavorite(true);
+  };
+
+  useEffect(() => {
+    if (
+      favoriteRecipes?.some((favorite: any) => favorite.id === recipe.idMeal)
+      || favoriteRecipes?.some((favorite: any) => favorite.id === recipe.idDrink)
+    ) setIsFavorite(true);
+    else setIsFavorite(false);
+  }, [favoriteRecipes]);
 
   useEffect(() => {
     if (isDrink) {
@@ -120,13 +124,11 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
           type="button"
           onClick={ handleFavoriteClick }
         >
-          {favoriteRecipes?.some(
-            (favorite: any) => favorite.id === recipe.idDrink,
-          ) ? (
+          {isFavorite ? (
             <img src={ blackHeartIcon } alt="share" data-testid="favorite-btn" />
-            ) : (
-              <img src={ whiteHeartIcon } alt="share" data-testid="favorite-btn" />
-            )}
+          ) : (
+            <img src={ whiteHeartIcon } alt="share" data-testid="favorite-btn" />
+          )}
         </button>
         <img src={ recipe.strDrinkThumb } alt="" data-testid="recipe-photo" />
         <h2 data-testid="recipe-title">{recipe.strDrink}</h2>
@@ -199,13 +201,11 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
         type="button"
         onClick={ handleFavoriteClick }
       >
-        {favoriteRecipes?.some(
-          (favorite: any) => favorite.id === recipe.idMeal,
-        ) ? (
+        {isFavorite ? (
           <img src={ blackHeartIcon } alt="share" data-testid="favorite-btn" />
-          ) : (
-            <img src={ whiteHeartIcon } alt="share" data-testid="favorite-btn" />
-          )}
+        ) : (
+          <img src={ whiteHeartIcon } alt="share" data-testid="favorite-btn" />
+        )}
       </button>
       <img src={ recipe.strMealThumb } alt="" data-testid="recipe-photo" />
       <h2 data-testid="recipe-title">{recipe.strMeal}</h2>
@@ -223,13 +223,6 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
         height="315"
         src={ newUrl }
         title="YouTube video player"
-        allow="
-        accelerometer;
-        autoplay;
-        clipboard-write;
-        encrypted-media;
-        gyroscope;
-        picture-in-picture"
         allowFullScreen
         data-testid="video"
       />
@@ -254,5 +247,4 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
     </div>
   );
 }
-
 export default RecipeDetails;
