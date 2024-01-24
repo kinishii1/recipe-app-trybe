@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import './styles.css';
+import shareIcon from '../../images/shareIcon.svg';
+import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
 function RecipeDetails({ isDrink }: { isDrink: boolean }) {
   const { id } = useParams<{ id: string }>();
@@ -61,6 +63,12 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
     return (
       <div>
         <h1>Recipe Details</h1>
+        <button className="share-btn" type="button" data-testid="share-btn">
+          <img src={ shareIcon } alt="share" />
+        </button>
+        <button className="favorite-btn" type="button" data-testid="favorite-btn">
+          <img src={ blackHeartIcon } alt="share" />
+        </button>
         <img src={ recipe.strDrinkThumb } alt="" data-testid="recipe-photo" />
         <h2 data-testid="recipe-title">{recipe.strDrink}</h2>
         <p data-testid="recipe-category">{recipe.strAlcoholic}</p>
@@ -115,6 +123,12 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
   return (
     <div>
       <h1>Recipe Details</h1>
+      <button className="share-btn" type="button" data-testid="share-btn">
+        <img src={ shareIcon } alt="share" />
+      </button>
+      <button className="favorite-btn" type="button" data-testid="favorite-btn">
+        <img src={ blackHeartIcon } alt="share" />
+      </button>
       <img src={ recipe.strMealThumb } alt="" data-testid="recipe-photo" />
       <h2 data-testid="recipe-title">{recipe.strMeal}</h2>
       <p data-testid="recipe-category">{recipe.strCategory}</p>
