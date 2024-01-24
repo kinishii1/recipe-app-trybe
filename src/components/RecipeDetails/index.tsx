@@ -1,11 +1,16 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import './styles.css';
 
 function RecipeDetails({ isDrink }: { isDrink: boolean }) {
   const { id } = useParams<{ id: string }>();
   const [recipe, setRecipe] = useState<any>({});
   const [recomendations, setRecomendations] = useState<any>([]);
+  const navigate = useNavigate();
+
+  const inProgressRecipes = JSON.parse(
+    localStorage.getItem('inProgressRecipes') as string,
+  );
 
   useEffect(() => {
     if (isDrink) {
@@ -44,6 +49,14 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
   const url = recipe?.strYoutube;
   const newUrl = url?.replace('watch?v=', 'embed/');
 
+  const handleClick = () => {
+    if (isDrink) {
+      navigate(`/drinks/${id}/in-progress`);
+    } else {
+      navigate(`/meals/${id}/in-progress`);
+    }
+  };
+
   if (isDrink) {
     return (
       <div>
@@ -79,10 +92,7 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
         />
         <div className="carousel-container">
           {recomendations.map((recomendation: any, index: number) => (
-            <div
-              data-testid={ `${index}-recommendation-card` }
-              key={ index }
-            >
+            <div data-testid={ `${index}-recommendation-card` } key={ index }>
               <img
                 src={ recomendation.strMealThumb }
                 alt={ recomendation.strMeal }
@@ -93,6 +103,11 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
             </div>
           ))}
         </div>
+        <button data-testid="start-recipe-btn" onClick={ handleClick }>
+          {inProgressRecipes && inProgressRecipes.drinks[id as string]
+            ? 'Continue Recipe'
+            : 'Start Recipe'}
+        </button>
       </div>
     );
   }
@@ -128,10 +143,7 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
       />
       <div className="carousel-container">
         {recomendations.map((recomendation: any, index: number) => (
-          <div
-            data-testid={ `${index}-recommendation-card` }
-            key={ index }
-          >
+          <div data-testid={ `${index}-recommendation-card` } key={ index }>
             <img
               src={ recomendation.strDrinkThumb }
               alt={ recomendation.strDrink }
@@ -142,6 +154,11 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
           </div>
         ))}
       </div>
+      <button data-testid="start-recipe-btn" onClick={ handleClick }>
+        {inProgressRecipes && inProgressRecipes?.meals[id as string]
+          ? 'Continue Recipe'
+          : 'Start Recipe'}
+      </button>
     </div>
   );
 }
