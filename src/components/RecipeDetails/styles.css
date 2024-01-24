@@ -1,72 +1,72 @@
 .carousel-container {
-  width: 600px;
-  height: 100%;
-  position: relative;
-  overflow-x: auto;
   display: flex;
   flex-direction: row;
-  margin: 50px 0;
   gap: 10px;
+  height: 100%;
+  margin: 50px 0;
+  overflow-x: auto;
+  position: relative;
+  width: 600px;
 }
 
 .carousel-container div {
-  width: 50%;
-  height: 100%;
+  align-items: center;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.carousel-container div img {
-  width: 300px;
   height: 100%;
-  object-fit: cover;
-}
-
-.start-recipe-btn {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  height: 50px;
-  background-color: #fff;
-  border: 1px solid black;
-}
-
-.share-btn {
-  position: fixed;
-  bottom: 50px;
-  right: 0;
-  width: 50px;
-  height: 50px;
-  background-color: #fff;
-  border: 1px solid black;
-  display: flex;
   justify-content: center;
-  align-items: center;
-  z-index: 1;
-}
-
-.share-btn img {
-  width: 30px;
-  height: 30px;
-}
-
-.favorite-btn {
-  position: fixed;
-  bottom: 100px;
-  right: 0px;
-  width: 50px;
-  height: 50px;
-  background-color: #fff;
-  border: 1px solid black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1;
+  width: 50%;
 }
 
 .favorite-btn img {
-  width: 30px;
   height: 30px;
+  width: 30px;
+}
+
+.share-btn img {
+  height: 30px;
+  width: 30px;
+}
+
+.carousel-container div img {
+  height: 100%;
+  object-fit: cover;
+  width: 300px;
+}
+
+.start-recipe-btn {
+  background-color: white;
+  border: 1px solid black;
+  bottom: 0;
+  height: 50px;
+  position: fixed;
+  width: 100%;
+}
+
+.share-btn {
+  align-items: center;
+  background-color: white;
+  border: 1px solid black;
+  bottom: 50px;
+  display: flex;
+  height: 50px;
+  justify-content: center;
+  position: fixed;
+  right: 0;
+  width: 50px;
+  z-index: 1;
+}
+
+.favorite-btn {
+  align-items: center;
+  background-color: white;
+  border: 1px solid black;
+  bottom: 100px;
+  display: flex;
+  height: 50px;
+  justify-content: center;
+  position: fixed;
+  right: 0px;
+  width: 50px;
+  z-index: 1;
 }
