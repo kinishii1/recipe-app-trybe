@@ -1,9 +1,14 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 import { vi } from 'vitest';
 import Meals from '../pages/Meals';
 import Drinks from '../pages/Drinks';
+import {
+  MealData,
+  DrinkData,
+} from './mocks/data';
+import SearchBar from '../components/SearchBar';
 
 enum TestIds {
   SEARCH_TOP_BTN = 'search-top-btn',
@@ -11,218 +16,88 @@ enum TestIds {
   EXEC_SEARCH_BTN = 'exec-search-btn',
 }
 
-describe('Meals', () => {
-  const fetchMockMeals = vi.spyOn(global, 'fetch').mockResolvedValue({
-    json: () => Promise.resolve(JSON.stringify({ meals: [{ idMeal: '1' }] })),
-  } as any);
-  afterEach(() => {
-    fetchMockMeals.mockRestore();
-  });
-  it('renders correctly', async () => {
-    render(
-      <BrowserRouter>
-        <Meals />
-      </BrowserRouter>,
-    );
-    const searchButton = screen.getByTestId(TestIds.SEARCH_TOP_BTN);
-    await userEvent.click(searchButton);
-
-    const radios = screen.getAllByRole('radio');
-    expect(radios.length).toBe(3);
-
-    radios.forEach(async (radio) => {
-      await userEvent.click(radio);
-    });
-
-    const execButton = screen.getByTestId(TestIds.EXEC_SEARCH_BTN);
-    expect(execButton).toBeInTheDocument();
-    await userEvent.click(execButton);
-  });
-  it('should call the meals api with ingredients', async () => {
-    render(
-      <BrowserRouter>
-        <Meals />
-      </BrowserRouter>,
-    );
-
-    const searchButton = screen.getByTestId(TestIds.SEARCH_TOP_BTN);
-    await userEvent.click(searchButton);
-
-    const radios = screen.getAllByRole('radio');
-    await userEvent.click(radios[0]);
-
-    const inputText = screen.getByTestId(TestIds.SEARCH_INPUT);
-    await userEvent.type(inputText, 'test');
-
-    const execButton = screen.getByTestId(TestIds.EXEC_SEARCH_BTN);
-    await userEvent.click(execButton);
-  });
-
-  it('should call the Meal api with name', async () => {
-    render(
-      <BrowserRouter>
-        <Meals />
-      </BrowserRouter>,
-    );
-    const searchButton = screen.getByTestId(TestIds.SEARCH_TOP_BTN);
-    await userEvent.click(searchButton);
-
-    const radios = screen.getAllByRole('radio');
-    await userEvent.click(radios[1]);
-
-    const inputText = screen.getByTestId(TestIds.SEARCH_INPUT);
-    await userEvent.type(inputText, 't');
-
-    const execButton = screen.getByTestId(TestIds.EXEC_SEARCH_BTN);
-    await userEvent.click(execButton);
-  });
-  it('should call the Meal api with first letter', async () => {
-    render(
-      <BrowserRouter>
-        <Meals />
-      </BrowserRouter>,
-    );
-
-    const searchButton = screen.getByTestId(TestIds.SEARCH_TOP_BTN);
-    await userEvent.click(searchButton);
-
-    const radios = screen.getAllByRole('radio');
-    await userEvent.click(radios[2]);
-
-    const inputText = screen.getByTestId(TestIds.SEARCH_INPUT);
-    await userEvent.type(inputText, 't');
-
-    const execButton = screen.getByTestId(TestIds.EXEC_SEARCH_BTN);
-    await userEvent.click(execButton);
-  });
-  it('if find 1 meal recipe should redirect to details page', async () => {
-    render(
-      <BrowserRouter>
-        <Meals />
-      </BrowserRouter>,
-    );
-    fetchMockMeals.mockRestore();
-    vi.spyOn(global, 'fetch').mockResolvedValue({
-      json: () => Promise.resolve({ meals: [{ idMeal: '1' }] }),
+describe('SearchBar Meal', () => {
+  beforeEach(() => {
+    vi.spyOn(global, 'fetch').mockResolvedValueOnce({
+      json: () => Promise.resolve(MealData),
     } as any);
-    const searchButton = screen.getByTestId(TestIds.SEARCH_TOP_BTN);
-    await userEvent.click(searchButton);
-
+    vi.spyOn(window, 'alert').mockImplementation(() => { });
+  });
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+  it('radios works', async () => {
+    render(
+      <MemoryRouter>
+        <SearchBar isDrink={ false } />
+      </MemoryRouter>,
+    );
     const radios = screen.getAllByRole('radio');
-    await userEvent.click(radios[2]);
+    expect(radios).toHaveLength(3);
+    await userEvent.click(radios[0]);
+    const searchInput = await screen.findByTestId(TestIds.SEARCH_INPUT);
+    expect(searchInput).toBeInTheDocument();
+    await userEvent.type(searchInput, 'chicken');
+    const execSearchBtn = await screen.findByTestId(TestIds.EXEC_SEARCH_BTN);
+    expect(execSearchBtn).toBeInTheDocument();
+    await userEvent.click(execSearchBtn);
+  });
 
-    const inputText = screen.getByTestId(TestIds.SEARCH_INPUT);
-    await userEvent.type(inputText, 't');
-
-    const execButton = screen.getByTestId(TestIds.EXEC_SEARCH_BTN);
-    await userEvent.click(execButton);
+  it('search works', async () => {
+    render(
+      <MemoryRouter>
+        <SearchBar isDrink={ false } />
+      </MemoryRouter>,
+    );
+    const radios = screen.getAllByRole('radio');
+    expect(radios).toHaveLength(3);
+    await userEvent.click(radios[1]);
+    const searchInput = await screen.findByTestId(TestIds.SEARCH_INPUT);
+    await userEvent.type(searchInput, 'chicken');
+    const execSearchBtn = await screen.findByTestId(TestIds.EXEC_SEARCH_BTN);
+    expect(execSearchBtn).toBeInTheDocument();
+    await userEvent.click(execSearchBtn);
+    expect(global.fetch).toBeCalledTimes(1);
   });
 });
 
-describe('Drinks', () => {
-  const fetchMockDrinks = vi.spyOn(global, 'fetch').mockResolvedValue({
-    json: () => Promise.resolve(JSON.stringify({ drinks: [{ idDrink: '1' }] })),
-  } as any);
-  afterEach(() => {
-    fetchMockDrinks.mockRestore();
-  });
-  it('should call the drinks api with ingredients', async () => {
-    render(
-      <BrowserRouter>
-        <Drinks />
-      </BrowserRouter>,
-    );
-
-    const searchButton = screen.getByTestId(TestIds.SEARCH_TOP_BTN);
-    await userEvent.click(searchButton);
-
-    const radios = screen.getAllByRole('radio');
-    await userEvent.click(radios[0]);
-
-    const inputText = screen.getByTestId(TestIds.SEARCH_INPUT);
-    await userEvent.type(inputText, 'a');
-
-    const execButton = screen.getByTestId(TestIds.EXEC_SEARCH_BTN);
-    await userEvent.click(execButton);
-  });
-
-  it('should call the drinks api with name', async () => {
-    render(
-      <BrowserRouter>
-        <Drinks />
-      </BrowserRouter>,
-    );
-
-    const searchButton = screen.getByTestId(TestIds.SEARCH_TOP_BTN);
-    await userEvent.click(searchButton);
-
-    const radios = screen.getAllByRole('radio');
-    await userEvent.click(radios[1]);
-
-    const inputText = screen.getByTestId(TestIds.SEARCH_INPUT);
-    await userEvent.type(inputText, 'b');
-
-    const execButton = screen.getByTestId(TestIds.EXEC_SEARCH_BTN);
-    await userEvent.click(execButton);
-  });
-  it('should call the drinks api with first letter', async () => {
-    render(
-      <BrowserRouter>
-        <Drinks />
-      </BrowserRouter>,
-    );
-
-    const searchButton = screen.getByTestId(TestIds.SEARCH_TOP_BTN);
-    await userEvent.click(searchButton);
-
-    const radios = screen.getAllByRole('radio');
-    await userEvent.click(radios[2]);
-
-    const inputText = screen.getByTestId(TestIds.SEARCH_INPUT);
-    await userEvent.type(inputText, 't');
-
-    const execButton = screen.getByTestId(TestIds.EXEC_SEARCH_BTN);
-    await userEvent.click(execButton);
-  });
-  it('should call the drinks api with first letter', async () => {
-    render(
-      <BrowserRouter>
-        <Drinks />
-      </BrowserRouter>,
-    );
-
-    const searchButton = screen.getByTestId(TestIds.SEARCH_TOP_BTN);
-    await userEvent.click(searchButton);
-
-    const radios = screen.getAllByRole('radio');
-    await userEvent.click(radios[2]);
-
-    const inputText = screen.getByTestId(TestIds.SEARCH_INPUT);
-    await userEvent.type(inputText, 't');
-
-    const execButton = screen.getByTestId(TestIds.EXEC_SEARCH_BTN);
-    await userEvent.click(execButton);
-  });
-  it('if find 1 drink recipe should redirect to details page', async () => {
-    render(
-      <BrowserRouter>
-        <Drinks />
-      </BrowserRouter>,
-    );
-    fetchMockDrinks.mockRestore();
-    vi.spyOn(global, 'fetch').mockResolvedValue({
-      json: () => Promise.resolve({ drinks: [{ idDrink: '1' }] }),
+describe('SearchBar Drink', () => {
+  beforeEach(() => {
+    vi.spyOn(global, 'fetch').mockResolvedValueOnce({
+      json: () => Promise.resolve(DrinkData),
     } as any);
-    const searchButton = screen.getByTestId(TestIds.SEARCH_TOP_BTN);
-    await userEvent.click(searchButton);
-
+    vi.spyOn(window, 'alert').mockImplementation(() => { });
+  });
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+  it('radios works', async () => {
+    render(
+      <MemoryRouter>
+        <SearchBar isDrink />
+      </MemoryRouter>,
+    );
     const radios = screen.getAllByRole('radio');
+    expect(radios).toHaveLength(3);
     await userEvent.click(radios[2]);
-
-    const inputText = screen.getByTestId(TestIds.SEARCH_INPUT);
-    await userEvent.type(inputText, 't');
-
-    const execButton = screen.getByTestId(TestIds.EXEC_SEARCH_BTN);
-    await userEvent.click(execButton);
+    const searchInput = await screen.findByTestId(TestIds.SEARCH_INPUT);
+    expect(searchInput).toBeInTheDocument();
+    await userEvent.type(searchInput, 'apple');
+    const execSearchBtn = await screen.findByTestId(TestIds.EXEC_SEARCH_BTN);
+    expect(execSearchBtn).toBeInTheDocument();
+    await userEvent.click(execSearchBtn);
+  });
+  it('search works', async () => {
+    render(
+      <MemoryRouter>
+        <SearchBar isDrink />
+      </MemoryRouter>,
+    );
+    const searchInput = await screen.findByTestId(TestIds.SEARCH_INPUT);
+    await userEvent.type(searchInput, 'chicken');
+    const execSearchBtn = await screen.findByTestId(TestIds.EXEC_SEARCH_BTN);
+    expect(execSearchBtn).toBeInTheDocument();
+    await userEvent.click(execSearchBtn);
+    expect(global.fetch).toBeCalledTimes(1);
   });
 });
