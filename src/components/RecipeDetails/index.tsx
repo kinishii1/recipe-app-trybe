@@ -9,6 +9,7 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
   const [recipe, setRecipe] = useState<any>({});
   const [recomendations, setRecomendations] = useState<any>([]);
   const [copyStatus, setCopyStatus] = useState<string>('');
+  const navigate = useNavigate();
 
   const handleShareClick = async () => {
     const url = window.location.href;
@@ -21,7 +22,28 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
     }
   };
 
-  const navigate = useNavigate();
+  const handleFavoriteClick = () => {
+    const favoriteRecipes = JSON.parse(
+      localStorage.getItem('favoriteRecipes') as string,
+    );
+    const newFavorite = {
+      id: recipe.idMeal || recipe.idDrink,
+      type: isDrink ? 'drink' : 'meal',
+      nationality: recipe.strArea || '',
+      category: recipe.strCategory,
+      alcoholicOrNot: recipe.strAlcoholic || '',
+      name: recipe.strMeal || recipe.strDrink,
+      image: recipe.strMealThumb || recipe.strDrinkThumb,
+    };
+    if (favoriteRecipes) {
+      localStorage.setItem(
+        'favoriteRecipes',
+        JSON.stringify([...favoriteRecipes, newFavorite]),
+      );
+    } else {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([newFavorite]));
+    }
+  };
 
   const inProgressRecipes = JSON.parse(
     localStorage.getItem('inProgressRecipes') as string,
@@ -92,6 +114,7 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
           className="favorite-btn"
           type="button"
           data-testid="favorite-btn"
+          onClick={ handleFavoriteClick }
         >
           <img src={ blackHeartIcon } alt="share" />
         </button>
@@ -161,7 +184,12 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
           <img src={ shareIcon } alt="share" />
         )}
       </button>
-      <button className="favorite-btn" type="button" data-testid="favorite-btn">
+      <button
+        className="favorite-btn"
+        type="button"
+        data-testid="favorite-btn"
+        onClick={ handleFavoriteClick }
+      >
         <img src={ blackHeartIcon } alt="share" />
       </button>
       <img src={ recipe.strMealThumb } alt="" data-testid="recipe-photo" />
