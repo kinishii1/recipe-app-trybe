@@ -1,36 +1,85 @@
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useShare } from '../../hooks/useShare';
 import shareIcon from '../../images/shareIcon.svg';
+import './styles.css';
 
 function DoneRecipes() {
-  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes') ?? '') || [];
+  const [doneRecipes, setDoneRecipes] = useState([]);
   const { handleShareClick, copyStatus } = useShare();
+
+  const handleFilterMeal = () => {
+    const filtered = doneRecipes.filter(
+      (recipe: any) => recipe.type === 'meal',
+    );
+    setDoneRecipes(filtered);
+  };
+
+  const handleFilterDrink = () => {
+    const filtered = doneRecipes.filter(
+      (recipe: any) => recipe.type === 'drink',
+    );
+    setDoneRecipes(filtered);
+  };
+
+  const handleFilterAll = () => {
+    const savedDoneRecipes = JSON.parse(
+      localStorage.getItem('doneRecipes') ?? '[]',
+    );
+    setDoneRecipes(savedDoneRecipes);
+  };
+
+  useEffect(() => {
+    const savedDoneRecipes = JSON.parse(
+      localStorage.getItem('doneRecipes') ?? '[]',
+    );
+    setDoneRecipes(savedDoneRecipes);
+  }, []);
+
   return (
     <div>
       <div className="done-recipes-btns">
-        <button type="button" data-testid="filter-by-all-btn">
+        <button
+          type="button"
+          data-testid="filter-by-all-btn"
+          onClick={ handleFilterAll }
+        >
           All
         </button>
-        <button type="button" data-testid="filter-by-meal-btn">
+        <button
+          type="button"
+          data-testid="filter-by-meal-btn"
+          onClick={ handleFilterMeal }
+        >
           Meals
         </button>
-        <button type="button" data-testid="filter-by-drink-btn">
+        <button
+          type="button"
+          data-testid="filter-by-drink-btn"
+          onClick={ handleFilterDrink }
+        >
           Drinks
         </button>
       </div>
       <div className="done-recipes-container">
         {doneRecipes.map((recipe: any, index: any) => (
-          <div key={ index }>
-            <img
-              src={ recipe.image }
-              alt={ recipe.name }
-              data-testid={ `${index}-horizontal-image` }
-            />
+          <div key={ recipe.id }>
+            <Link to={ `/${recipe.type}s/${recipe.id}` }>
+              <img
+                className="horizontal-image"
+                data-testid={ `${index}-horizontal-image` }
+                src={ recipe.image }
+                alt={ recipe.name }
+              />
+            </Link>
             <p data-testid={ `${index}-horizontal-top-text` }>
               {recipe.type === 'meal'
                 ? `${recipe.nationality} - ${recipe.category}`
                 : recipe.alcoholicOrNot}
             </p>
-            <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
+            <Link to={ `/${recipe.type}s/${recipe.id}` }>
+              <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
+            </Link>
             <p data-testid={ `${index}-horizontal-done-date` }>
               {recipe.doneDate}
             </p>
