@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import './styles.css';
 import shareIcon from '../../images/shareIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 
 function RecipeDetails({ isDrink }: { isDrink: boolean }) {
   const { id } = useParams<{ id: string }>();
@@ -47,6 +48,10 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
 
   const inProgressRecipes = JSON.parse(
     localStorage.getItem('inProgressRecipes') as string,
+  );
+
+  const favoriteRecipes = JSON.parse(
+    localStorage.getItem('favoriteRecipes') as string,
   );
 
   useEffect(() => {
@@ -113,10 +118,15 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
         <button
           className="favorite-btn"
           type="button"
-          data-testid="favorite-btn"
           onClick={ handleFavoriteClick }
         >
-          <img src={ blackHeartIcon } alt="share" />
+          {favoriteRecipes?.some(
+            (favorite: any) => favorite.id === recipe.idDrink,
+          ) ? (
+            <img src={ blackHeartIcon } alt="share" data-testid="favorite-btn" />
+            ) : (
+              <img src={ whiteHeartIcon } alt="share" data-testid="favorite-btn" />
+            )}
         </button>
         <img src={ recipe.strDrinkThumb } alt="" data-testid="recipe-photo" />
         <h2 data-testid="recipe-title">{recipe.strDrink}</h2>
@@ -187,10 +197,15 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
       <button
         className="favorite-btn"
         type="button"
-        data-testid="favorite-btn"
         onClick={ handleFavoriteClick }
       >
-        <img src={ blackHeartIcon } alt="share" />
+        {favoriteRecipes?.some(
+          (favorite: any) => favorite.id === recipe.idMeal,
+        ) ? (
+          <img src={ blackHeartIcon } alt="share" data-testid="favorite-btn" />
+          ) : (
+            <img src={ whiteHeartIcon } alt="share" data-testid="favorite-btn" />
+          )}
       </button>
       <img src={ recipe.strMealThumb } alt="" data-testid="recipe-photo" />
       <h2 data-testid="recipe-title">{recipe.strMeal}</h2>
