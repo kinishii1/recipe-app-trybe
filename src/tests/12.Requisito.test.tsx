@@ -139,5 +139,5 @@ describe('Alert Tests', () => {
     const execSearchBtn = await screen.findByTestId(TestIds.EXEC_SEARCH_BTN);
     expect(execSearchBtn).toBeInTheDocument();
     await userEvent.click(execSearchBtn);
-  })
+  });
 });
