@@ -1,20 +1,37 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import './styles.css';
 
 function RecipeDetails({ isDrink }: { isDrink: boolean }) {
   const { id } = useParams<{ id: string }>();
   const [recipe, setRecipe] = useState<any>({});
+  const [recomendations, setRecomendations] = useState<any>([]);
 
   useEffect(() => {
     if (isDrink) {
       fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
         .then((response) => response.json())
         .then((data) => setRecipe(data.drinks[0]));
+      fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
+        .then((response) => response.json())
+        .then((data) => {
+          const first6Recomendations = data.meals.slice(0, 6);
+          console.log(first6Recomendations);
+          setRecomendations(first6Recomendations);
+        });
+
       return;
     }
     fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
       .then((response) => response.json())
       .then((data) => setRecipe(data.meals[0]));
+    fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
+      .then((response) => response.json())
+      .then((data) => {
+        const first6Recomendations = data.drinks.slice(0, 6);
+        console.log(first6Recomendations);
+        setRecomendations(first6Recomendations);
+      });
   }, []);
 
   const ingredients = Object.keys(recipe)
@@ -60,6 +77,22 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
           allowFullScreen
           data-testid="video"
         />
+        <div className="carousel-container">
+          {recomendations.map((recomendation: any, index: number) => (
+            <div
+              data-testid={ `${index}-recommendation-card` }
+              key={ index }
+            >
+              <img
+                src={ recomendation.strMealThumb }
+                alt={ recomendation.strMeal }
+              />
+              <p data-testid={ `${index}-recommendation-title` }>
+                {recomendation.strMeal}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
@@ -93,6 +126,22 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
         allowFullScreen
         data-testid="video"
       />
+      <div className="carousel-container">
+        {recomendations.map((recomendation: any, index: number) => (
+          <div
+            data-testid={ `${index}-recommendation-card` }
+            key={ index }
+          >
+            <img
+              src={ recomendation.strDrinkThumb }
+              alt={ recomendation.strDrink }
+            />
+            <p data-testid={ `${index}-recommendation-title` }>
+              {recomendation.strDrink}
+            </p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
