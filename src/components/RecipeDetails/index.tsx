@@ -18,11 +18,9 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
   const inProgressRecipes = JSON.parse(
     localStorage.getItem('inProgressRecipes') as string,
   );
-
   const favoriteRecipes = JSON.parse(
     localStorage.getItem('favoriteRecipes') as string,
   );
-
   const addFavorite = (newFavorite: any) => {
     if (!favoriteRecipes) {
       localStorage.setItem('favoriteRecipes', JSON.stringify([newFavorite]));
@@ -31,14 +29,12 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
     const newFavoriteRecipes = [...favoriteRecipes, newFavorite];
     localStorage.setItem('favoriteRecipes', JSON.stringify(newFavoriteRecipes));
   };
-
   const removeFavorite = (newFavorite: any) => {
     const newFavoriteRecipes = favoriteRecipes.filter(
       (favorite: any) => favorite.id !== newFavorite.id,
     );
     localStorage.setItem('favoriteRecipes', JSON.stringify(newFavoriteRecipes));
   };
-
   const handleFavoriteClick = () => {
     const newFavorite = formatFavorite(recipe, isDrink);
     if (isFavorite) {
@@ -49,7 +45,6 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
     addFavorite(newFavorite);
     setIsFavorite(true);
   };
-
   useEffect(() => {
     if (
       favoriteRecipes?.some((favorite: any) => favorite.id === recipe.idMeal)
@@ -57,7 +52,6 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
     ) setIsFavorite(true);
     else setIsFavorite(false);
   }, [favoriteRecipes]);
-
   useEffect(() => {
     if (isDrink) {
       fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
@@ -84,17 +78,14 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
         setRecomendations(first6Recomendations);
       });
   }, []);
-
   const ingredients = Object.keys(recipe)
     .filter((key) => key.includes('strIngredient'))
     .filter((key) => recipe[key] !== null && recipe[key] !== '');
   const measures = Object.keys(recipe)
     .filter((key) => key.includes('strMeasure'))
     .filter((key) => recipe[key] !== null && recipe[key] !== '');
-
   const url = recipe?.strYoutube;
   const newUrl = url?.replace('watch?v=', 'embed/');
-
   const handleClick = () => {
     if (isDrink) {
       navigate(`/drinks/${id}/in-progress`);
@@ -102,7 +93,6 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
       navigate(`/meals/${id}/in-progress`);
     }
   };
-
   if (isDrink) {
     return (
       <div>
@@ -172,7 +162,11 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
             </div>
           ))}
         </div>
-        <button data-testid="start-recipe-btn" onClick={ handleClick }>
+        <button
+          className="start-recipe-btn"
+          data-testid="start-recipe-btn"
+          onClick={ handleClick }
+        >
           {inProgressRecipes && inProgressRecipes.drinks[id as string]
             ? 'Continue Recipe'
             : 'Start Recipe'}
@@ -180,7 +174,6 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
       </div>
     );
   }
-
   return (
     <div>
       <h1>Recipe Details</h1>
@@ -239,7 +232,11 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
           </div>
         ))}
       </div>
-      <button data-testid="start-recipe-btn" onClick={ handleClick }>
+      <button
+        className="start-recipe-btn"
+        data-testid="start-recipe-btn"
+        onClick={ handleClick }
+      >
         {inProgressRecipes && inProgressRecipes?.meals[id as string]
           ? 'Continue Recipe'
           : 'Start Recipe'}

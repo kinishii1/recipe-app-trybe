@@ -2,8 +2,6 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 import { vi } from 'vitest';
-import Meals from '../pages/Meals';
-import Drinks from '../pages/Drinks';
 import {
   MealData,
   DrinkData,
@@ -100,4 +98,46 @@ describe('SearchBar Drink', () => {
     await userEvent.click(execSearchBtn);
     expect(global.fetch).toBeCalledTimes(1);
   });
+});
+
+describe('Alert Tests', () => {
+  it('test alert for Meal', async () => {
+    vi.spyOn(global, 'fetch').mockResolvedValueOnce({
+      json: () => Promise.resolve({ meals: null }),
+    } as any);
+    window.alert = vi.fn();
+    render(
+      <MemoryRouter>
+        <SearchBar isDrink={ false } />
+      </MemoryRouter>,
+    );
+    const radios = screen.getAllByRole('radio');
+    expect(radios).toHaveLength(3);
+    await userEvent.click(radios[0]);
+    const searchInput = await screen.findByTestId(TestIds.SEARCH_INPUT);
+    await userEvent.type(searchInput, 'chicken');
+    const execSearchBtn = await screen.findByTestId(TestIds.EXEC_SEARCH_BTN);
+    expect(execSearchBtn).toBeInTheDocument();
+    await userEvent.click(execSearchBtn);
+    expect(window.alert).toBeCalledTimes(1);
+  });
+  it('test alert for Drink', async () => {
+    vi.spyOn(global, 'fetch').mockResolvedValueOnce({
+      json: () => Promise.resolve({ drinks: null }),
+    } as any);
+    window.alert = vi.fn();
+    render(
+      <MemoryRouter>
+        <SearchBar isDrink />
+      </MemoryRouter>,
+    );
+    const radios = screen.getAllByRole('radio');
+    expect(radios).toHaveLength(3);
+    await userEvent.click(radios[0]);
+    const searchInput = await screen.findByTestId(TestIds.SEARCH_INPUT);
+    await userEvent.type(searchInput, 'chicken');
+    const execSearchBtn = await screen.findByTestId(TestIds.EXEC_SEARCH_BTN);
+    expect(execSearchBtn).toBeInTheDocument();
+    await userEvent.click(execSearchBtn);
+  })
 });

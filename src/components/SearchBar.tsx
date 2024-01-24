@@ -18,7 +18,9 @@ function SearchBar({ isDrink }: { isDrink: boolean }) {
       const response = await apiRequestDrink(selectedRadio, inputVal);
       console.log(response);
       const { drinks } = response;
-      if (!drinks) return alert("Sorry, we haven't found any recipes for these filters");
+      if (!drinks) {
+        return window.alert("Sorry, we haven't found any recipes for these filters");
+      }
       if (drinks.length === 1) {
         const { idDrink } = drinks[0];
         return navigate(`/drinks/${idDrink}`);
@@ -26,7 +28,9 @@ function SearchBar({ isDrink }: { isDrink: boolean }) {
     }
     const response = await apiRequestMeal(selectedRadio, inputVal);
     const { meals } = response;
-    if (!meals) return alert("Sorry, we haven't found any recipes for these filters");
+    if (!meals) {
+      return window.alert("Sorry, we haven't found any recipes for these filters");
+    }
     if (meals.length === 1) {
       const { idMeal } = meals[0];
       return navigate(`/meals/${idMeal}`);
