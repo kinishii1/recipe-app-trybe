@@ -46,4 +46,9 @@ export const useSelectedCategory = ({
     setSelectedCategory('');
     setRecipes(originalRecipes);
   };
+
+  return {
+    handleClick,
+    handleClearFilter,
+  };
 };

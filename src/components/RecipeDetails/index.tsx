@@ -10,6 +10,7 @@ import RecipeDetailsIngredientList from './RecipeDetailsIngredientList';
 import RecipeDetailsCarrousel from './RecipeDetailsCarrousel';
 import { formatUrl } from '../../helpers/formatUrl';
 import { formatIngredientsAndMeasures } from '../../helpers/formatIngredientsAndMesures';
+import { useFavoriteRecipiesDetails } from '../../hooks/useFavoriteRecipiesDetails';
 
 function RecipeDetails({ isDrink }: { isDrink: boolean }) {
   const { id } = useParams<{ id: string }>();
@@ -20,7 +21,7 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
   const { ingredients, measures } = formatIngredientsAndMeasures(recipe);
   const url = recipe?.strYoutube;
   const newUrl = formatUrl(url);
-  const { isFavorite, handleFavoriteClick } = formatFavorite(recipe, isDrink);
+  const { isFavorite, handleFavoriteClick } = useFavoriteRecipiesDetails(recipe, isDrink);
   const inProgressRecipes = JSON.parse(
     localStorage.getItem('inProgressRecipes') as string,
   );
