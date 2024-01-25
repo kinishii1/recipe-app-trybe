@@ -1,40 +1,15 @@
-import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useShare } from '../../hooks/useShare';
 import shareIcon from '../../images/shareIcon.svg';
 import './styles.css';
+import { useDoneRecipes } from '../../hooks/useDoneRecipies';
 
 function DoneRecipes() {
-  const [doneRecipes, setDoneRecipes] = useState([]);
   const { handleShareClick, copyStatus } = useShare();
-
-  const handleFilterMeal = () => {
-    const filtered = doneRecipes.filter(
-      (recipe: any) => recipe.type === 'meal',
-    );
-    setDoneRecipes(filtered);
-  };
-
-  const handleFilterDrink = () => {
-    const filtered = doneRecipes.filter(
-      (recipe: any) => recipe.type === 'drink',
-    );
-    setDoneRecipes(filtered);
-  };
-
-  const handleFilterAll = () => {
-    const savedDoneRecipes = JSON.parse(
-      localStorage.getItem('doneRecipes') ?? '[]',
-    );
-    setDoneRecipes(savedDoneRecipes);
-  };
-
-  useEffect(() => {
-    const savedDoneRecipes = JSON.parse(
-      localStorage.getItem('doneRecipes') ?? '[]',
-    );
-    setDoneRecipes(savedDoneRecipes);
-  }, []);
+  const { doneRecipes,
+    handleFilterMeal,
+    handleFilterDrink,
+    handleFilterAll } = useDoneRecipes();
 
   return (
     <div>

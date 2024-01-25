@@ -48,26 +48,12 @@ function SearchBar({ isDrink }: { isDrink: boolean }) {
 
   return (
     <form onSubmit={ handleSubmit }>
-      {/* <input
-        type="text"
-        data-testid="search-input"
-        value={ inputVal }
-        onChange={ (e) => setInputVal(e.target.value) }
-      /> */}
       <Input
         type="text"
         dataTestId="search-input"
         value={ inputVal }
         onChange={ (e) => setInputVal(e.target.value) }
       />
-      {/* <input
-        data-testid="ingredient-search-radio"
-        type="radio"
-        name="radio"
-        value="ingredient"
-        id="ingredient-search-radio"
-        onChange={ (e) => setSelectedRadio(e.target.value) }
-      /> */}
       <Input
         labelText="Ingredient"
         dataTestId="ingredient-search-radio"
@@ -77,15 +63,6 @@ function SearchBar({ isDrink }: { isDrink: boolean }) {
         id="ingredient-search-radio"
         onChange={ (e) => setSelectedRadio(e.target.value) }
       />
-      {/* <label htmlFor="ingredient-search-radio">Ingredient</label>
-      <input
-        data-testid="name-search-radio"
-        type="radio"
-        name="radio"
-        value="name"
-        id="name-search-radio"
-        onChange={ (e) => setSelectedRadio(e.target.value) }
-      /> */}
       <Input
         labelText="Name"
         dataTestId="name-search-radio"
@@ -95,15 +72,6 @@ function SearchBar({ isDrink }: { isDrink: boolean }) {
         id="name-search-radio"
         onChange={ (e) => setSelectedRadio(e.target.value) }
       />
-      {/* <label htmlFor="name-search-radio">Name</label> */}
-      {/* <input
-        data-testid="first-letter-search-radio"
-        type="radio"
-        name="radio"
-        value="first-letter"
-        id="first-letter-search-radio"
-        onChange={ (e) => setSelectedRadio(e.target.value) }
-      /> */}
       <Input
         labelText="First letter"
         dataTestId="first-letter-search-radio"
@@ -113,7 +81,6 @@ function SearchBar({ isDrink }: { isDrink: boolean }) {
         id="first-letter-search-radio"
         onChange={ (e) => setSelectedRadio(e.target.value) }
       />
-      {/* <label htmlFor="first-letter-search-radio">First letter</label> */}
       <button data-testid="exec-search-btn">Buscar</button>
     </form>
   );

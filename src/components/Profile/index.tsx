@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 function Profile() {
   const navigate = useNavigate();
   const email = localStorage.getItem('user');
+
   const handleClick = ({ target }: any) => {
     const { name } = target;
     if (name === 'done-recipes') {
