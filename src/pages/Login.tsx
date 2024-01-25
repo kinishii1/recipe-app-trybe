@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import logoApp from '../images/logo-app.png';
+import bgImg from '../images/bg-img.png';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -33,26 +35,30 @@ function Login() {
   };
 
   return (
-    <form
-      data-testid="login-form"
-      onSubmit={ (e) => handleSubmit(e) }
-    >
-      <input
-        type="email"
-        data-testid="email-input"
-        value={ email }
-        onChange={ (e) => handleChange(e) }
-      />
-      <input
-        type="password"
-        data-testid="password-input"
-        value={ password }
-        onChange={ (e) => handleChange(e) }
-      />
-      <button disabled={ !isValid } data-testid="login-submit-btn">
-        Enter
-      </button>
-    </form>
+    <div className="login-container">
+      <img className='logo' src={ logoApp } alt="" />
+      <img className='bg-img' src= { bgImg } alt="" />
+      <form
+        data-testid="login-form"
+        onSubmit={ (e) => handleSubmit(e) }
+      >
+        <input
+          type="email"
+          data-testid="email-input"
+          value={ email }
+          onChange={ (e) => handleChange(e) }
+        />
+        <input
+          type="password"
+          data-testid="password-input"
+          value={ password }
+          onChange={ (e) => handleChange(e) }
+        />
+        <button disabled={ !isValid } data-testid="login-submit-btn">
+          Enter
+        </button>
+      </form>
+    </div>
   );
 }
 

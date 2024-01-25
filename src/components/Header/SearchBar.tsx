@@ -5,8 +5,8 @@ import apiRequestDrink from '../../services/ApiRequestDrink';
 import Input from '../Input';
 
 function SearchBar({ isDrink }: { isDrink: boolean }) {
-  const [selectedRadio, setSelectedRadio] = useState('');
-  const [inputVal, setInputVal] = useState('');
+  const [selectedRadio, setSelectedRadio] = useState<string>('');
+  const [inputVal, setInputVal] = useState<string>('');
   const navigate = useNavigate();
 
   const handleDrinkRequest = async () => {

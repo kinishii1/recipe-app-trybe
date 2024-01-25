@@ -2,12 +2,13 @@ import { Link } from 'react-router-dom';
 import FavoriteRecipesLikeBtn from './FavoriteRecipesLikeBtn';
 import shareIcon from '../../images/shareIcon.svg';
 import { useShare } from '../../hooks/useShare';
+import { Favorite } from '../../types';
 
 type Props = {
   recipe: any;
   index: number;
   handleFavoriteClick: any;
-  favoriteRecipes: any;
+  favoriteRecipes: Favorite;
 };
 
 function FavoriteRecipesCard({

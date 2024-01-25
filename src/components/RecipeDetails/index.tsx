@@ -4,7 +4,6 @@ import './styles.css';
 import shareIcon from '../../images/shareIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
-import { formatFavorite } from '../../helpers/formatFavorite';
 import { useShare } from '../../hooks/useShare';
 import RecipeDetailsIngredientList from './RecipeDetailsIngredientList';
 import RecipeDetailsCarrousel from './RecipeDetailsCarrousel';

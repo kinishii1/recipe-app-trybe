@@ -1,9 +1,9 @@
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
-import { DoneRecipeData } from '../../types';
+import { DoneRecipe, Favorite } from '../../types';
 
 type Props = {
-  recipe: DoneRecipeData | any;
+  recipe: DoneRecipe;
   index: number;
   handleFavoriteClick: any;
   favoriteRecipes: any;
@@ -16,7 +16,7 @@ function FavoriteRecipesLikeBtn({
   favoriteRecipes,
 }: Props) {
   const isFavorite = favoriteRecipes?.some(
-    (favorite: any) => favorite.id === recipe.id,
+    (favorite: Favorite) => favorite.id === recipe.id,
   );
   return (
     <button

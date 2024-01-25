@@ -13,7 +13,7 @@ export type InputProps = {
   name?: string;
 };
 
-export type DoneRecipeData = {
+export type DoneRecipe = {
   id: string;
   type: string;
   area: string;
@@ -24,4 +24,14 @@ export type DoneRecipeData = {
   doneDate: string;
   tags: string[];
   nationality: string;
+};
+
+export type Favorite = {
+  id: string;
+  type: string;
+  nationality: string;
+  category: string;
+  alcoholicOrNot: string;
+  name: string;
+  image: string;
 };
