@@ -6,7 +6,7 @@ type Props = {
 
 function RecipeDetailsIngredientList({ ingredients, measures, recipe } : Props) {
   return (
-    <ol>
+    <ol className="recipe-details-ingredients">
       {ingredients.map((ingredient, index) => (
         <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
           {`${recipe[ingredient]} - ${recipe[measures[index]]}`}

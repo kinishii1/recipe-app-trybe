@@ -10,6 +10,7 @@ import RecipeDetailsCarrousel from './RecipeDetailsCarrousel';
 import { formatUrl } from '../../helpers/formatUrl';
 import { formatIngredientsAndMeasures } from '../../helpers/formatIngredientsAndMesures';
 import { useFavoriteRecipiesDetails } from '../../hooks/useFavoriteRecipiesDetails';
+import { defineImageCategory } from '../../helpers/defineImageCategory';
 
 function RecipeDetails({ isDrink }: { isDrink: boolean }) {
   const { id } = useParams<{ id: string }>();
@@ -76,119 +77,84 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
     }
   };
 
-  // if (isDrink) {
-  //   return (
-  //     <div>
-  //       <h1>Recipe Details</h1>
-  //       <button
-  //         className="share-btn"
-  //         type="button"
-  //         data-testid="share-btn"
-  //         onClick={ handleShareClick }
-  //       >
-  //         {copyStatus !== '' ? (
-  //           <p>{copyStatus}</p>
-  //         ) : (
-  //           <img src={ shareIcon } alt="share" />
-  //         )}
-  //       </button>
-  //       <button
-  //         className="favorite-btn"
-  //         type="button"
-  //         onClick={ handleFavoriteClick }
-  //       >
-  //         {isFavorite ? (
-  //           <img src={ blackHeartIcon } alt="share" data-testid="favorite-btn" />
-  //         ) : (
-  //           <img src={ whiteHeartIcon } alt="share" data-testid="favorite-btn" />
-  //         )}
-  //       </button>
-  //       <img src={ recipe.strDrinkThumb } alt="" data-testid="recipe-photo" />
-  //       <h2 data-testid="recipe-title">{recipe.strDrink}</h2>
-  //       <p data-testid="recipe-category">{recipe.strAlcoholic}</p>
-  //       <RecipeDetailsIngredientList
-  //         ingredients={ ingredients }
-  //         measures={ measures }
-  //         recipe={ recipe }
-  //       />
-  //       <p data-testid="instructions">{recipe.strInstructions}</p>
-  //       <iframe
-  //         width="560"
-  //         height="315"
-  //         src={ newUrl }
-  //         title="YouTube video player"
-  //         allow="
-  //       accelerometer;
-  //       autoplay;
-  //       clipboard-write;
-  //       encrypted-media;
-  //       gyroscope;
-  //       picture-in-picture"
-  //         allowFullScreen
-  //         data-testid="video"
-  //       />
-  //       <RecipeDetailsCarrousel recomendations={ recomendations } />
-  //       <button
-  //         className="start-recipe-btn"
-  //         data-testid="start-recipe-btn"
-  //         onClick={ handleClick }
-  //       >
-  //         {inProgressRecipes && inProgressRecipes?.drinks[id as string]
-  //           ? 'Continue Recipe'
-  //           : 'Start Recipe'}
-  //       </button>
-  //     </div>
-  //   );
-  // }
   return (
-    <div>
-      <h1>Recipe Details</h1>
-      <button
-        className="share-btn"
-        type="button"
-        data-testid="share-btn"
-        onClick={ handleShareClick }
-      >
-        {copyStatus !== '' ? (
-          <p>{copyStatus}</p>
-        ) : (
-          <img src={ shareIcon } alt="share" />
-        )}
-      </button>
-      <button
-        className="favorite-btn"
-        type="button"
-        onClick={ handleFavoriteClick }
-      >
-        {isFavorite ? (
-          <img src={ blackHeartIcon } alt="share" data-testid="favorite-btn" />
-        ) : (
-          <img src={ whiteHeartIcon } alt="share" data-testid="favorite-btn" />
-        )}
-      </button>
+    <div className="recipe-details-container">
       <img
         src={ recipe.strMealThumb || recipe.strDrinkThumb }
         alt=""
+        className="recipe-photo"
         data-testid="recipe-photo"
       />
-      <h2 data-testid="recipe-title">{recipe.strMeal || recipe.strDrink}</h2>
-      <p data-testid="recipe-category">
-        {recipe.strAlcoholic || recipe.strCategory}
-      </p>
+      <div className="recipe-details-header">
+        <div className="header-container-control">
+          <div className="recipe-details-header_info">
+            <p data-testid="recipe-category">
+              {recipe.strAlcoholic || recipe.strCategory}
+            </p>
+            <img src={ defineImageCategory(recipe.strCategory) } alt="" />
+          </div>
+          <div className="recipe-details-header_btns">
+            <button
+              type="button"
+              data-testid="share-btn"
+              onClick={ handleShareClick }
+            >
+              {copyStatus !== '' ? (
+                <p>{copyStatus}</p>
+              ) : (
+                <img src={ shareIcon } alt="share" />
+              )}
+            </button>
+            <button type="button" onClick={ handleFavoriteClick }>
+              {isFavorite ? (
+                <img
+                  src={ blackHeartIcon }
+                  alt="share"
+                  data-testid="favorite-btn"
+                />
+              ) : (
+                <img
+                  src={ whiteHeartIcon }
+                  alt="share"
+                  data-testid="favorite-btn"
+                />
+              )}
+            </button>
+          </div>
+        </div>
+        <h1 data-testid="recipe-title">{recipe.strMeal || recipe.strDrink}</h1>
+      </div>
+      <h1>Ingredients</h1>
       <RecipeDetailsIngredientList
         ingredients={ ingredients }
         measures={ measures }
         recipe={ recipe }
       />
-      <p data-testid="instructions">{recipe.strInstructions}</p>
+      <h1>Instructions</h1>
+      <p data-testid="instructions" className="instructions">{recipe.strInstructions}</p>
+
+      <h1
+        style={ {
+          margin: '10px 0 20px 0',
+        } }
+      >
+        Video
+      </h1>
       <iframe
-        width="560"
-        height="315"
+        width="360"
+        height="215"
         src={ newUrl }
         title="YouTube video player"
         allowFullScreen
         data-testid="video"
       />
+      <h1
+        style={ {
+          marginTop: '20px',
+        } }
+      >
+        Recommendations
+      </h1>
       <RecipeDetailsCarrousel recomendations={ recomendations } />
       <button
         className="start-recipe-btn"

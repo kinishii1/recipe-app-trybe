@@ -2,7 +2,11 @@ function RecipeDetailsCarrousel({ recomendations }: { recomendations: any }) {
   return (
     <div className="carousel-container">
       {recomendations.map((recomendation: any, index: number) => (
-        <div data-testid={ `${index}-recommendation-card` } key={ index }>
+        <div
+          className="carousel-card"
+          data-testid={ `${index}-recommendation-card` }
+          key={ index }
+        >
           <img
             src={ recomendation.strMealThumb || recomendation.strDrinkThumb }
             alt={ recomendation.strMeal || recomendation.strDrink }
