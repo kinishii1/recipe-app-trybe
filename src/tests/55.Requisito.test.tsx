@@ -1,9 +1,8 @@
 import userEvent from '@testing-library/user-event';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import { favoriteRecipes } from './mocks/data';
+import { favoriteRecipes } from './mocks/formattedData';
 import FavoriteRecipes from '../components/FavoriteRecipes';
-import { d } from 'vitest/dist/types-e3c9754d';
 
 enum TestIds {
   ALL_BTN = 'filter-by-all-btn',

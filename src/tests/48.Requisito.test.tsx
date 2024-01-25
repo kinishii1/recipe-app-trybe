@@ -2,28 +2,18 @@ import userEvent from '@testing-library/user-event';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import DoneRecipes from '../components/DoneRecipes';
+import { mockDoneDrink, mockDoneMeal } from './mocks/formattedData';
 
 enum TestIds {
   ALL_BTN = 'filter-by-all-btn',
   MEAL_BTN = 'filter-by-meal-btn',
   DRINK_BTN = 'filter-by-drink-btn',
+  SHARE_BTN = '0-horizontal-share-btn',
 }
 
 describe('done recipes Meals', () => {
   beforeEach(() => {
-    const mockDataMeal = {
-      id: '52977',
-      type: 'meal',
-      area: 'Italian',
-      category: 'Vegetarian',
-      alcoholicOrNot: '',
-      name: 'Spicy Arrabiata Penne',
-      image:
-        'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-      doneDate: '23/06/2021',
-      tags: ['Pasta', 'Curry'],
-    };
-    localStorage.setItem('doneRecipes', JSON.stringify([mockDataMeal]));
+    localStorage.setItem('doneRecipes', JSON.stringify([mockDoneMeal]));
   });
 
   afterEach(() => localStorage.clear());
@@ -45,19 +35,7 @@ describe('done recipes Meals', () => {
 
 describe('done recipes drink', () => {
   beforeEach(() => {
-    const mockDataDrink = {
-      id: '15997',
-      type: 'drink',
-      area: '',
-      category: 'Ordinary Drink',
-      alcoholicOrNot: 'Optional alcohol',
-      name: 'GG',
-      image:
-        'https://www.thecocktaildb.com/images/media/drink/vyxwut1468875960.jpg',
-      doneDate: '23/06/2021',
-      tags: [],
-    };
-    localStorage.setItem('doneRecipes', JSON.stringify([mockDataDrink]));
+    localStorage.setItem('doneRecipes', JSON.stringify([mockDoneDrink]));
   });
   afterEach(() => localStorage.clear());
   it('test share button', async () => {
@@ -80,7 +58,7 @@ describe('done recipes drink', () => {
         <DoneRecipes />
       </MemoryRouter>,
     );
-    const shareButton = screen.getByTestId('0-horizontal-share-btn');
+    const shareButton = screen.getByTestId(TestIds.SHARE_BTN);
     await userEvent.click(shareButton);
   });
 });

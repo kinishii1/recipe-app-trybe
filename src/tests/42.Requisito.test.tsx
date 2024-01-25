@@ -1,6 +1,6 @@
 import userEvent from '@testing-library/user-event';
 import { vi } from 'vitest';
-import { findAllByRole, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { DrinkData, MealData } from './mocks/data';
 import RecipeInProgress from '../components/RecipeInProgress';
