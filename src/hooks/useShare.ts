@@ -6,7 +6,7 @@ export const useShare = (): any => {
   const handleShareClick = async (id: number = 0, isDrink: boolean = false) => {
     let url;
     url = window.location.href;
-    url = url.replace(/\/in-progres$/, '');
+    url = url.replace(/\/in-progress$/, '');
     if (id > 0) {
       if (isDrink) {
         url = `${window.location.origin}/drinks/${id}`;

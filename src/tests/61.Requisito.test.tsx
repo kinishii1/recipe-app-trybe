@@ -1,8 +1,6 @@
 import userEvent from '@testing-library/user-event';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import { favoriteRecipes } from './mocks/formattedData';
-import FavoriteRecipes from '../components/FavoriteRecipes';
 import ProfilePage from '../pages/ProfilePage';
 
 describe('profile', () => {

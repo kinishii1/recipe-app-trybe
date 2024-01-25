@@ -1,8 +1,8 @@
 import userEvent from '@testing-library/user-event';
 import { vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { MemoryRouter, Route, Routes } from 'react-router-dom';
-import { DrinkData, MealCategoriesData, MealData } from './mocks/data';
+import { MemoryRouter } from 'react-router-dom';
+import { DrinkData, MealData } from './mocks/data';
 import RecipeDetails from '../components/RecipeDetails';
 
 describe('Recipe Details Meals', () => {
