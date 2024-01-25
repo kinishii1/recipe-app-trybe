@@ -6,52 +6,25 @@ import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import { formatFavorite } from '../../helpers/formatFavorite';
 import { useShare } from '../../hooks/useShare';
+import RecipeDetailsIngredientList from './RecipeDetailsIngredientList';
+import RecipeDetailsCarrousel from './RecipeDetailsCarrousel';
+import { formatUrl } from '../../helpers/formatUrl';
+import { formatIngredientsAndMeasures } from '../../helpers/formatIngredientsAndMesures';
 
 function RecipeDetails({ isDrink }: { isDrink: boolean }) {
   const { id } = useParams<{ id: string }>();
   const [recipe, setRecipe] = useState<any>({});
   const [recomendations, setRecomendations] = useState<any>([]);
-  const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const { handleShareClick, copyStatus } = useShare();
   const navigate = useNavigate();
-
+  const { ingredients, measures } = formatIngredientsAndMeasures(recipe);
+  const url = recipe?.strYoutube;
+  const newUrl = formatUrl(url);
+  const { isFavorite, handleFavoriteClick } = formatFavorite(recipe, isDrink);
   const inProgressRecipes = JSON.parse(
     localStorage.getItem('inProgressRecipes') as string,
   );
-  const favoriteRecipes = JSON.parse(
-    localStorage.getItem('favoriteRecipes') as string,
-  );
-  const addFavorite = (newFavorite: any) => {
-    if (!favoriteRecipes) {
-      localStorage.setItem('favoriteRecipes', JSON.stringify([newFavorite]));
-      return;
-    }
-    const newFavoriteRecipes = [...favoriteRecipes, newFavorite];
-    localStorage.setItem('favoriteRecipes', JSON.stringify(newFavoriteRecipes));
-  };
-  const removeFavorite = (newFavorite: any) => {
-    const newFavoriteRecipes = favoriteRecipes.filter(
-      (favorite: any) => favorite.id !== newFavorite.id,
-    );
-    localStorage.setItem('favoriteRecipes', JSON.stringify(newFavoriteRecipes));
-  };
-  const handleFavoriteClick = () => {
-    const newFavorite = formatFavorite(recipe, isDrink);
-    if (isFavorite) {
-      removeFavorite(newFavorite);
-      setIsFavorite(false);
-      return;
-    }
-    addFavorite(newFavorite);
-    setIsFavorite(true);
-  };
-  useEffect(() => {
-    if (
-      favoriteRecipes?.some((favorite: any) => favorite.id === recipe.idMeal)
-      || favoriteRecipes?.some((favorite: any) => favorite.id === recipe.idDrink)
-    ) setIsFavorite(true);
-    else setIsFavorite(false);
-  }, [favoriteRecipes]);
+
   useEffect(() => {
     if (isDrink) {
       fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
@@ -64,7 +37,6 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
           console.log(first6Recomendations);
           setRecomendations(first6Recomendations);
         });
-
       return;
     }
     fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
@@ -78,14 +50,7 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
         setRecomendations(first6Recomendations);
       });
   }, []);
-  const ingredients = Object.keys(recipe)
-    .filter((key) => key.includes('strIngredient'))
-    .filter((key) => recipe[key] !== null && recipe[key] !== '');
-  const measures = Object.keys(recipe)
-    .filter((key) => key.includes('strMeasure'))
-    .filter((key) => recipe[key] !== null && recipe[key] !== '');
-  const url = recipe?.strYoutube;
-  const newUrl = url?.replace('watch?v=', 'embed/');
+
   const handleClick = () => {
     if (isDrink) {
       navigate(`/drinks/${id}/in-progress`);
@@ -93,6 +58,7 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
       navigate(`/meals/${id}/in-progress`);
     }
   };
+
   if (isDrink) {
     return (
       <div>
@@ -123,16 +89,11 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
         <img src={ recipe.strDrinkThumb } alt="" data-testid="recipe-photo" />
         <h2 data-testid="recipe-title">{recipe.strDrink}</h2>
         <p data-testid="recipe-category">{recipe.strAlcoholic}</p>
-        <ol>
-          {ingredients.map((ingredient, index) => (
-            <li
-              key={ index }
-              data-testid={ `${index}-ingredient-name-and-measure` }
-            >
-              {`${recipe[ingredient]} - ${recipe[measures[index]]}`}
-            </li>
-          ))}
-        </ol>
+        <RecipeDetailsIngredientList
+          ingredients={ ingredients }
+          measures={ measures }
+          recipe={ recipe }
+        />
         <p data-testid="instructions">{recipe.strInstructions}</p>
         <iframe
           width="560"
@@ -149,19 +110,7 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
           allowFullScreen
           data-testid="video"
         />
-        <div className="carousel-container">
-          {recomendations.map((recomendation: any, index: number) => (
-            <div data-testid={ `${index}-recommendation-card` } key={ index }>
-              <img
-                src={ recomendation.strMealThumb }
-                alt={ recomendation.strMeal }
-              />
-              <p data-testid={ `${index}-recommendation-title` }>
-                {recomendation.strMeal}
-              </p>
-            </div>
-          ))}
-        </div>
+        <RecipeDetailsCarrousel recomendations={ recomendations } />
         <button
           className="start-recipe-btn"
           data-testid="start-recipe-btn"
@@ -203,13 +152,11 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
       <img src={ recipe.strMealThumb } alt="" data-testid="recipe-photo" />
       <h2 data-testid="recipe-title">{recipe.strMeal}</h2>
       <p data-testid="recipe-category">{recipe.strCategory}</p>
-      <ol>
-        {ingredients.map((ingredient, index) => (
-          <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
-            {`${recipe[ingredient]} - ${recipe[measures[index]]}`}
-          </li>
-        ))}
-      </ol>
+      <RecipeDetailsIngredientList
+        ingredients={ ingredients }
+        measures={ measures }
+        recipe={ recipe }
+      />
       <p data-testid="instructions">{recipe.strInstructions}</p>
       <iframe
         width="560"
@@ -219,19 +166,7 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
         allowFullScreen
         data-testid="video"
       />
-      <div className="carousel-container">
-        {recomendations.map((recomendation: any, index: number) => (
-          <div data-testid={ `${index}-recommendation-card` } key={ index }>
-            <img
-              src={ recomendation.strDrinkThumb }
-              alt={ recomendation.strDrink }
-            />
-            <p data-testid={ `${index}-recommendation-title` }>
-              {recomendation.strDrink}
-            </p>
-          </div>
-        ))}
-      </div>
+      <RecipeDetailsCarrousel recomendations={ recomendations } />
       <button
         className="start-recipe-btn"
         data-testid="start-recipe-btn"
