@@ -8,7 +8,7 @@ import MealDetails from './pages/MealDetails';
 import DrinkDetails from './pages/DrinkDetails';
 import MealsInProgress from './pages/MealsInProgress';
 import DrinksInProgress from './pages/DrinksInProgress';
-import Profile from './pages/Profile';
+import ProfilePage from './pages/ProfilePage';
 import FavoriteRecipesPage from './pages/FavoriteRecipesPage';
 import DoneRecipesPage from './pages/DoneRecipesPage';
 
@@ -22,7 +22,7 @@ function App() {
       <Route path="/drinks/:id" element={ <DrinkDetails /> } />
       <Route path="/meals/:id/in-progress" element={ <MealsInProgress /> } />
       <Route path="/drinks/:id/in-progress" element={ <DrinksInProgress /> } />
-      <Route path="/profile" element={ <Profile /> } />
+      <Route path="/profile" element={ <ProfilePage /> } />
       <Route path="/done-recipes" element={ <DoneRecipesPage /> } />
       <Route path="/favorite-recipes" element={ <FavoriteRecipesPage /> } />
     </Routes>
