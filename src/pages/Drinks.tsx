@@ -5,8 +5,6 @@ import Recipes from '../components/Recipes';
 function Drinks() {
   return (
     <>
-      <Header title="Drinks" withSearchIcons />
-      <div>Drinks</div>
       <Recipes isDrink />
       <Footer />
     </>
