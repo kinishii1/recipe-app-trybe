@@ -23,6 +23,7 @@ function FavoriteRecipes() {
         {favoriteSorted.length > 0
           && favoriteRecipes.map((recipe: any, index: any) => (
             <FavoriteRecipesCard
+              favoriteRecipes={ favoriteSorted }
               key={ recipe.id }
               recipe={ recipe }
               index={ index }
@@ -32,6 +33,7 @@ function FavoriteRecipes() {
         {favoriteSorted.length === 0
           && favoriteRecipes.map((recipe: any, index: any) => (
             <FavoriteRecipesCard
+              favoriteRecipes={ favoriteRecipes }
               key={ recipe.id }
               recipe={ recipe }
               index={ index }

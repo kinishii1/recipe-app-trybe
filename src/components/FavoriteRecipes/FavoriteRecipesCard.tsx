@@ -7,9 +7,11 @@ type Props = {
   recipe: any;
   index: number;
   handleFavoriteClick: any;
+  favoriteRecipes: any;
 };
 
 function FavoriteRecipesCard({
+  favoriteRecipes,
   recipe,
   index,
   handleFavoriteClick,
@@ -49,6 +51,7 @@ function FavoriteRecipesCard({
         )}
       </button>
       <FavoriteRecipesLikeBtn
+        favoriteRecipes={ favoriteRecipes }
         recipe={ recipe }
         index={ index }
         handleFavoriteClick={ handleFavoriteClick }
