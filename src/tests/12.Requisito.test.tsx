@@ -6,7 +6,7 @@ import {
   MealData,
   DrinkData,
 } from './mocks/data';
-import SearchBar from '../components/SearchBar';
+import SearchBar from '../components/Header/SearchBar';
 
 enum TestIds {
   SEARCH_TOP_BTN = 'search-top-btn',

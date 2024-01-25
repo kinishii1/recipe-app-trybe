@@ -1,17 +1,15 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import profile from '../images/profileIcon.svg';
-import search from '../images/searchIcon.svg';
+import profile from '../../images/profileIcon.svg';
+import search from '../../images/searchIcon.svg';
 import SearchBar from './SearchBar';
+import { HeaderProps } from '../../types';
 
 function Header({
   title,
   withSearchIcons,
-}: {
-  title: string;
-  withSearchIcons: boolean;
-}) {
-  const [showSearchBar, setShowSearchBar] = useState(false);
+}: HeaderProps) {
+  const [showSearchBar, setShowSearchBar] = useState<boolean>(false);
   return (
     <div>
       <Link to="/profile">
