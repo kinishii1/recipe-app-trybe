@@ -42,8 +42,17 @@ const mockDoneMeal = {
   doneDate: '23/06/2021',
   tags: ['Pasta', 'Curry'],
 };
+const inProgressRecipes = {
+  drinks: {
+    15997: ['Gin', 'Lemon', 'Ice', 'Mint'],
+  },
+  meals: {
+    52977: ['Penne', 'Tomato', 'Garlic', 'Onion'],
+  },
+};
 export {
   favoriteRecipes,
   mockDoneDrink,
   mockDoneMeal,
+  inProgressRecipes,
 };

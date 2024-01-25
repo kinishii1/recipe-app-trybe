@@ -4,6 +4,7 @@ import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { DrinkData, MealData } from './mocks/data';
 import RecipeDetails from '../components/RecipeDetails';
+import { inProgressRecipes } from './mocks/formattedData';
 
 describe('Recipe Details Meals', () => {
   beforeEach(() => {
@@ -121,5 +122,53 @@ describe('Recipe Details Drinks', () => {
 
     const shareBtn = screen.getByTestId('share-btn');
     await userEvent.click(shareBtn);
+  });
+});
+
+describe('Recipe Details Drinks with inProgressData', () => {
+  beforeAll(() => {
+    localStorage.setItem(
+      'inProgressRecipes',
+      JSON.stringify(inProgressRecipes),
+    );
+  });
+
+  it('testing with isDrink', async () => {
+    render(
+      <MemoryRouter>
+        <RecipeDetails isDrink />
+      </MemoryRouter>,
+    );
+
+    const favoriteBtn = screen.getByTestId('favorite-btn');
+    await userEvent.click(favoriteBtn);
+    expect(favoriteBtn).toHaveAttribute(
+      'src',
+      '/src/images/blackHeartIcon.svg',
+    );
+    await userEvent.click(favoriteBtn);
+    expect(favoriteBtn).toHaveAttribute(
+      'src',
+      '/src/images/whiteHeartIcon.svg',
+    );
+  });
+
+  it('testing without isDrink', async () => {
+    render(
+      <MemoryRouter>
+        <RecipeDetails isDrink={ false } />
+      </MemoryRouter>,
+    );
+    const favoriteBtn = screen.getByTestId('favorite-btn');
+    await userEvent.click(favoriteBtn);
+    expect(favoriteBtn).toHaveAttribute(
+      'src',
+      '/src/images/blackHeartIcon.svg',
+    );
+    await userEvent.click(favoriteBtn);
+    expect(favoriteBtn).toHaveAttribute(
+      'src',
+      '/src/images/whiteHeartIcon.svg',
+    );
   });
 });
