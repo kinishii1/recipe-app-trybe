@@ -9,7 +9,7 @@ import DrinkDetails from './pages/DrinkDetails';
 import MealsInProgress from './pages/MealsInProgress';
 import DrinksInProgress from './pages/DrinksInProgress';
 import Profile from './pages/Profile';
-import FavoriteRecipes from './pages/FavoriteRecipes';
+import FavoriteRecipesPage from './pages/FavoriteRecipesPage';
 import DoneRecipesPage from './pages/DoneRecipesPage';
 
 function App() {
@@ -24,7 +24,7 @@ function App() {
       <Route path="/drinks/:id/in-progress" element={ <DrinksInProgress /> } />
       <Route path="/profile" element={ <Profile /> } />
       <Route path="/done-recipes" element={ <DoneRecipesPage /> } />
-      <Route path="/favorite-recipes" element={ <FavoriteRecipes /> } />
+      <Route path="/favorite-recipes" element={ <FavoriteRecipesPage /> } />
     </Routes>
   );
 }
