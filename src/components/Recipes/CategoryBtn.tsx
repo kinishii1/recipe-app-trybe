@@ -4,6 +4,11 @@ import dessertEmoji from '../../images/dessertEmoji.svg';
 import chickenEmoji from '../../images/chickenEmoji.svg';
 import breakfastEmoji from '../../images/breakfastEmoji.svg';
 import beefEmoji from '../../images/beefEmoji.svg';
+import ordinaryEmojiDrink from '../../images/ordinaryEmojiDrink.png';
+import cocktailEmoji from '../../images/cocktailEmoji.png';
+import shakeEmoji from '../../images/shakeEmoji.png';
+import otherEmojiDrink from '../../images/otherEmojiDrink.png';
+import cocoaEmojiDrink from '../../images/cocoaEmojiDrink.png';
 
 type CategoryBtnProps = {
   category: any;
@@ -23,6 +28,16 @@ const defineImageCategory = (category: string) => {
       return breakfastEmoji;
     case 'Beef':
       return beefEmoji;
+    case 'Ordinary Drink':
+      return ordinaryEmojiDrink;
+    case 'Cocktail':
+      return cocktailEmoji;
+    case 'Shake':
+      return shakeEmoji;
+    case 'Other / Unknown':
+      return otherEmojiDrink;
+    case 'Cocoa':
+      return cocoaEmojiDrink;
     default:
       return profileIcon;
   }

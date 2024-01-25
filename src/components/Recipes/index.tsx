@@ -5,6 +5,7 @@ import RecipeCard from './RecipeCard';
 import './styles.css';
 import { useSelectedCategory } from '../../hooks/useSelectedCategory';
 import allEmoji from '../../images/allEmoji.svg';
+import allEmojiDrink from '../../images/allEmojiDrink.png';
 
 function Recipes({ isDrink }: { isDrink: boolean }) {
   const { recipes, setRecipes } = useRecipe(isDrink);
@@ -19,7 +20,7 @@ function Recipes({ isDrink }: { isDrink: boolean }) {
     <div className="recipes-container">
       <div className="recipes-category-container">
         <button data-testid="All-category-filter" onClick={ handleClearFilter }>
-          <img src={ allEmoji } alt="" />
+          <img src={ isDrink ? allEmojiDrink : allEmoji } alt="" />
           All
         </button>
         {categories.map((category, index) => (
