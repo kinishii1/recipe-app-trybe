@@ -6,6 +6,17 @@ import { DrinkData, MealData } from './mocks/data';
 import RecipeDetails from '../components/RecipeDetails';
 import { inProgressRecipes } from './mocks/formattedData';
 
+enum TestIds {
+  FAVORITE_BTN = 'favorite-btn',
+  START_RECIPE_BTN = 'start-recipe-btn',
+  SHARE_BTN = 'share-btn',
+}
+
+enum ImageSrc {
+  WHITE_HEART = '/src/images/whiteHeartIcon.svg',
+  BLACK_HEART = '/src/images/blackHeartIcon.svg',
+}
+
 describe('Recipe Details Meals', () => {
   beforeEach(() => {
     vi.spyOn(global, 'fetch')
@@ -26,16 +37,16 @@ describe('Recipe Details Meals', () => {
       </MemoryRouter>,
     );
 
-    const favoriteBtn = screen.getByTestId('favorite-btn');
+    const favoriteBtn = screen.getByTestId(TestIds.FAVORITE_BTN);
     await userEvent.click(favoriteBtn);
     expect(favoriteBtn).toHaveAttribute(
       'src',
-      '/src/images/blackHeartIcon.svg',
+      ImageSrc.BLACK_HEART,
     );
     await userEvent.click(favoriteBtn);
     expect(favoriteBtn).toHaveAttribute(
       'src',
-      '/src/images/whiteHeartIcon.svg',
+      ImageSrc.WHITE_HEART,
     );
   });
   it('test start recipe button', async () => {
@@ -56,7 +67,7 @@ describe('Recipe Details Meals', () => {
       </MemoryRouter>,
     );
 
-    const startRecipeBtn = screen.getByTestId('start-recipe-btn');
+    const startRecipeBtn = screen.getByTestId(TestIds.START_RECIPE_BTN);
     await userEvent.click(startRecipeBtn);
   });
   it('test share button', async () => {
@@ -66,7 +77,7 @@ describe('Recipe Details Meals', () => {
       </MemoryRouter>,
     );
 
-    const shareBtn = screen.getByTestId('share-btn');
+    const shareBtn = screen.getByTestId(TestIds.SHARE_BTN);
     await userEvent.click(shareBtn);
   });
 });
@@ -91,16 +102,16 @@ describe('Recipe Details Drinks', () => {
       </MemoryRouter>,
     );
 
-    const favoriteBtn = screen.getByTestId('favorite-btn');
+    const favoriteBtn = screen.getByTestId(TestIds.FAVORITE_BTN);
     await userEvent.click(favoriteBtn);
     expect(favoriteBtn).toHaveAttribute(
       'src',
-      '/src/images/blackHeartIcon.svg',
+      ImageSrc.BLACK_HEART,
     );
     await userEvent.click(favoriteBtn);
     expect(favoriteBtn).toHaveAttribute(
       'src',
-      '/src/images/whiteHeartIcon.svg',
+      ImageSrc.WHITE_HEART,
     );
   });
   it('test start recipe button', async () => {
@@ -110,7 +121,7 @@ describe('Recipe Details Drinks', () => {
       </MemoryRouter>,
     );
 
-    const startRecipeBtn = screen.getByTestId('start-recipe-btn');
+    const startRecipeBtn = screen.getByTestId(TestIds.START_RECIPE_BTN);
     await userEvent.click(startRecipeBtn);
   });
   it('test share button', async () => {
@@ -120,7 +131,7 @@ describe('Recipe Details Drinks', () => {
       </MemoryRouter>,
     );
 
-    const shareBtn = screen.getByTestId('share-btn');
+    const shareBtn = screen.getByTestId(TestIds.SHARE_BTN);
     await userEvent.click(shareBtn);
   });
 });
@@ -140,16 +151,16 @@ describe('Recipe Details Drinks with inProgressData', () => {
       </MemoryRouter>,
     );
 
-    const favoriteBtn = screen.getByTestId('favorite-btn');
+    const favoriteBtn = screen.getByTestId(TestIds.FAVORITE_BTN);
     await userEvent.click(favoriteBtn);
     expect(favoriteBtn).toHaveAttribute(
       'src',
-      '/src/images/blackHeartIcon.svg',
+      ImageSrc.BLACK_HEART,
     );
     await userEvent.click(favoriteBtn);
     expect(favoriteBtn).toHaveAttribute(
       'src',
-      '/src/images/whiteHeartIcon.svg',
+      ImageSrc.WHITE_HEART,
     );
   });
 
@@ -159,16 +170,16 @@ describe('Recipe Details Drinks with inProgressData', () => {
         <RecipeDetails isDrink={ false } />
       </MemoryRouter>,
     );
-    const favoriteBtn = screen.getByTestId('favorite-btn');
+    const favoriteBtn = screen.getByTestId(TestIds.FAVORITE_BTN);
     await userEvent.click(favoriteBtn);
     expect(favoriteBtn).toHaveAttribute(
       'src',
-      '/src/images/blackHeartIcon.svg',
+      ImageSrc.BLACK_HEART,
     );
     await userEvent.click(favoriteBtn);
     expect(favoriteBtn).toHaveAttribute(
       'src',
-      '/src/images/whiteHeartIcon.svg',
+      ImageSrc.WHITE_HEART,
     );
   });
 });
