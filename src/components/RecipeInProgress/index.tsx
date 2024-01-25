@@ -3,104 +3,33 @@ import './styles.css';
 import { useEffect, useState } from 'react';
 import shareIcon from '../../images/shareIcon.svg';
 import { useShare } from '../../hooks/useShare';
-import { formatFavorite } from '../../helpers/formatFavorite';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import { formatIngredientsAndMeasures } from '../../helpers/formatIngredientsAndMesures';
+import { useFavoriteRecipiesDetails } from '../../hooks/useFavoriteRecipiesDetails';
+import { formatDoneRecipe } from '../../helpers/formatDoneRecipe';
+import { useCheckedStatus } from '../../hooks/useCheckedStatus';
+import IngredientItem from './IngredientItem';
 
 function RecipeInProgress({ isDrink }: { isDrink: boolean }) {
   const [recipe, setRecipe] = useState<any>({});
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { handleShareClick, copyStatus } = useShare();
-  const [isFavorite, setIsFavorite] = useState<boolean>(false);
-  const [checked, setChecked] = useState<any>(() => {
-    const saved = localStorage.getItem('checkedItems');
-    const initialValue = JSON.parse(saved || '{}');
-    return initialValue;
-  });
-
-  const ingredients = Object.keys(recipe)
-    .filter((key) => key.includes('strIngredient'))
-    .filter((key) => recipe[key] !== null && recipe[key] !== '');
-  const measures = Object.keys(recipe)
-    .filter((key) => key.includes('strMeasure'))
-    .filter((key) => recipe[key] !== null && recipe[key] !== '');
-
-  const allChecked = ingredients.every((ingredient) => checked[ingredient]);
-
-  const favoriteRecipes = JSON.parse(
-    localStorage.getItem('favoriteRecipes') as string,
-  );
-
-  const handleChecked = (ingredient: string) => {
-    if (checked[ingredient]) {
-      const newChecked = { ...checked };
-      delete newChecked[ingredient];
-      setChecked(newChecked);
-    } else {
-      const newChecked = { ...checked, [ingredient]: true };
-      setChecked(newChecked);
-    }
-  };
-
-  const addFavorite = (newFavorite: any) => {
-    if (!favoriteRecipes) {
-      localStorage.setItem('favoriteRecipes', JSON.stringify([newFavorite]));
-      return;
-    }
-    const newFavoriteRecipes = [...favoriteRecipes, newFavorite];
-    localStorage.setItem('favoriteRecipes', JSON.stringify(newFavoriteRecipes));
-  };
-  const removeFavorite = (newFavorite: any) => {
-    const newFavoriteRecipes = favoriteRecipes.filter(
-      (favorite: any) => favorite.id !== newFavorite.id,
-    );
-    localStorage.setItem('favoriteRecipes', JSON.stringify(newFavoriteRecipes));
-  };
-
-  const handleFavoriteClick = () => {
-    const newFavorite = formatFavorite(recipe, isDrink);
-    if (isFavorite) {
-      removeFavorite(newFavorite);
-      setIsFavorite(false);
-      return;
-    }
-    addFavorite(newFavorite);
-    setIsFavorite(true);
-  };
+  const { ingredients, measures } = formatIngredientsAndMeasures(recipe);
+  const { isFavorite, handleFavoriteClick } = useFavoriteRecipiesDetails(recipe, isDrink);
+  const { checked, allChecked, handleChecked } = useCheckedStatus(ingredients);
 
   const handleFinishClick = () => {
     let prevVal = JSON.parse(localStorage.getItem('doneRecipes') as any);
     if (!Array.isArray(prevVal)) {
       prevVal = [];
     }
-    const newDoneRecipe = {
-      id: recipe.idMeal || recipe.idDrink,
-      type: isDrink ? 'drink' : 'meal',
-      nationality: recipe.strArea || '',
-      category: recipe.strCategory || '',
-      alcoholicOrNot: recipe.strAlcoholic || '',
-      name: recipe.strMeal || recipe.strDrink,
-      image: recipe.strMealThumb || recipe.strDrinkThumb,
-      doneDate: new Date().toISOString(),
-      tags: recipe.strTags ? recipe.strTags.split(',') : [],
-    };
+    const newDoneRecipe = formatDoneRecipe(recipe, isDrink);
     const newDoneRecipes = [...prevVal, newDoneRecipe];
     localStorage.setItem('doneRecipes', JSON.stringify(newDoneRecipes));
     navigate('/done-recipes');
   };
-
-  useEffect(() => {
-    localStorage.setItem('checkedItems', JSON.stringify(checked));
-  }, [checked]);
-
-  useEffect(() => {
-    if (
-      favoriteRecipes?.some((favorite: any) => favorite.id === recipe.idMeal)
-      || favoriteRecipes?.some((favorite: any) => favorite.id === recipe.idDrink)
-    ) setIsFavorite(true);
-    else setIsFavorite(false);
-  }, [favoriteRecipes]);
 
   useEffect(() => {
     if (isDrink) {
@@ -153,24 +82,15 @@ function RecipeInProgress({ isDrink }: { isDrink: boolean }) {
         <h3>Ingredients</h3>
         <div className="ingredients-list" data-testid="ingredient-card">
           {ingredients.map((ingredient, index) => (
-            <label
+            <IngredientItem
               key={ index }
-              data-testid={ `${index}-ingredient-step` }
-              htmlFor={ ingredient }
-              style={
-                ingredient in checked
-                  ? { textDecoration: 'line-through solid rgb(0, 0, 0)' }
-                  : {}
-              }
-            >
-              <input
-                type="checkbox"
-                id={ ingredient }
-                checked={ ingredient in checked }
-                onChange={ () => handleChecked(ingredient) }
-              />
-              {`${recipe[ingredient]} - ${recipe[measures[index]]}`}
-            </label>
+              recipe={ recipe }
+              ingredient={ ingredient }
+              measures={ measures }
+              index={ index }
+              checked={ checked }
+              handleChecked={ handleChecked }
+            />
           ))}
         </div>
       </div>
