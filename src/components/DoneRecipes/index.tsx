@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom';
 import { useShare } from '../../hooks/useShare';
+import { useDoneRecipes } from '../../hooks/useDoneRecipies';
 import shareIcon from '../../images/shareIcon.svg';
 import './styles.css';
-import { useDoneRecipes } from '../../hooks/useDoneRecipies';
+import DoneRecipiesBtns from './DoneRecipiesBtns';
+import DoneRecipiesTags from './DoneRecipiesTags';
+import { DoneRecipeData } from '../../types';
 
 function DoneRecipes() {
   const { handleShareClick, copyStatus } = useShare();
@@ -10,34 +13,15 @@ function DoneRecipes() {
     handleFilterMeal,
     handleFilterDrink,
     handleFilterAll } = useDoneRecipes();
-
   return (
     <div>
-      <div className="done-recipes-btns">
-        <button
-          type="button"
-          data-testid="filter-by-all-btn"
-          onClick={ handleFilterAll }
-        >
-          All
-        </button>
-        <button
-          type="button"
-          data-testid="filter-by-meal-btn"
-          onClick={ handleFilterMeal }
-        >
-          Meals
-        </button>
-        <button
-          type="button"
-          data-testid="filter-by-drink-btn"
-          onClick={ handleFilterDrink }
-        >
-          Drinks
-        </button>
-      </div>
+      <DoneRecipiesBtns
+        handleFilterAll={ handleFilterAll }
+        handleFilterMeal={ handleFilterMeal }
+        handleFilterDrink={ handleFilterDrink }
+      />
       <div className="done-recipes-container">
-        {doneRecipes.map((recipe: any, index: any) => (
+        {doneRecipes.map((recipe: DoneRecipeData, index: any) => (
           <div key={ recipe.id }>
             <Link to={ `/${recipe.type}s/${recipe.id}` }>
               <img
@@ -58,11 +42,7 @@ function DoneRecipes() {
             <p data-testid={ `${index}-horizontal-done-date` }>
               {recipe.doneDate}
             </p>
-            {recipe.tags.map((tag: any) => (
-              <span key={ tag } data-testid={ `${index}-${tag}-horizontal-tag` }>
-                {tag}
-              </span>
-            ))}
+            <DoneRecipiesTags recipe={ recipe } index={ index } />
             <button
               type="button"
               className="horizontal-share-btn"

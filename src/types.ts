@@ -12,3 +12,16 @@ export type InputProps = {
   labelText?: string;
   name?: string;
 };
+
+export type DoneRecipeData = {
+  id: string;
+  type: string;
+  area: string;
+  category: string;
+  alcoholicOrNot: string;
+  name: string;
+  image: string;
+  doneDate: string;
+  tags: string[];
+  nationality: string;
+};
