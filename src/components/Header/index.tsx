@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import profile from '../../images/profileIcon.svg';
 import search from '../../images/searchIcon.svg';
 import SearchBar from './SearchBar';
+import './styles.css';
 import { HeaderProps } from '../../types';
 import logoAppSM from '../../images/logoAppSM.svg';
 import logoAppSM2 from '../../images/logoAppSM2.svg';
