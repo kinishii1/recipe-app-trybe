@@ -36,8 +36,8 @@ function Login() {
 
   return (
     <div className="login-container">
-      <img className='logo' src={ logoApp } alt="" />
-      <img className='bg-img' src= { bgImg } alt="" />
+      <img className="logo" src={ logoApp } alt="" />
+      <img className="bg-img" src={ bgImg } alt="" />
       <form
         data-testid="login-form"
         onSubmit={ (e) => handleSubmit(e) }

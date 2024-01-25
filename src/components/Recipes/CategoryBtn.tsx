@@ -1,3 +1,5 @@
+import profileIcon from '../../images/profileIcon.svg';
+
 type CategoryBtnProps = {
   category: any;
   index: number;
@@ -13,6 +15,7 @@ function CategoryBtn({ category, index, handleClick } : CategoryBtnProps) {
       data-testid={ `${category.strCategory}-category-filter` }
       onClick={ handleClick }
     >
+      <img src={ profileIcon } alt="" />
       {category.strCategory}
     </button>
   );

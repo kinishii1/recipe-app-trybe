@@ -47,40 +47,42 @@ function SearchBar({ isDrink }: { isDrink: boolean }) {
   };
 
   return (
-    <form onSubmit={ handleSubmit }>
+    <form className="search-bar" onSubmit={ handleSubmit }>
       <Input
         type="text"
         dataTestId="search-input"
         value={ inputVal }
         onChange={ (e) => setInputVal(e.target.value) }
       />
-      <Input
-        labelText="Ingredient"
-        dataTestId="ingredient-search-radio"
-        type="radio"
-        name="radio"
-        value="ingredient"
-        id="ingredient-search-radio"
-        onChange={ (e) => setSelectedRadio(e.target.value) }
-      />
-      <Input
-        labelText="Name"
-        dataTestId="name-search-radio"
-        type="radio"
-        name="radio"
-        value="name"
-        id="name-search-radio"
-        onChange={ (e) => setSelectedRadio(e.target.value) }
-      />
-      <Input
-        labelText="First letter"
-        dataTestId="first-letter-search-radio"
-        type="radio"
-        name="radio"
-        value="first-letter"
-        id="first-letter-search-radio"
-        onChange={ (e) => setSelectedRadio(e.target.value) }
-      />
+      <div className="search-bar-radio-container">
+        <Input
+          labelText="Ingredient"
+          dataTestId="ingredient-search-radio"
+          type="radio"
+          name="radio"
+          value="ingredient"
+          id="ingredient-search-radio"
+          onChange={ (e) => setSelectedRadio(e.target.value) }
+        />
+        <Input
+          labelText="Name"
+          dataTestId="name-search-radio"
+          type="radio"
+          name="radio"
+          value="name"
+          id="name-search-radio"
+          onChange={ (e) => setSelectedRadio(e.target.value) }
+        />
+        <Input
+          labelText="First letter"
+          dataTestId="first-letter-search-radio"
+          type="radio"
+          name="radio"
+          value="first-letter"
+          id="first-letter-search-radio"
+          onChange={ (e) => setSelectedRadio(e.target.value) }
+        />
+      </div>
       <button data-testid="exec-search-btn">Buscar</button>
     </form>
   );

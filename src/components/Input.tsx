@@ -11,7 +11,6 @@ function Input({
 }: InputProps) {
   return (
     <>
-      {labelText && <label htmlFor={ id }>{labelText}</label>}
       <input
         type={ type }
         data-testid={ dataTestId }
@@ -20,6 +19,7 @@ function Input({
         onChange={ onChange }
         name={ name }
       />
+      {labelText && <label htmlFor={ id }>{labelText}</label>}
     </>
   );
 }
