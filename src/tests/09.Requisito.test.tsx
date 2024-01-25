@@ -1,6 +1,6 @@
 import userEvent from '@testing-library/user-event';
 import { render, screen } from '@testing-library/react';
-import { BrowserRouter, MemoryRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Meals from '../pages/Meals';
 import LayoutHeaderWithIcons from '../pages/Layouts/LayoutHeaderWithIcons';
 
