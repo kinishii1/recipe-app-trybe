@@ -5,7 +5,6 @@ import shareIcon from '../../images/shareIcon.svg';
 import './styles.css';
 import DoneRecipiesBtns from './DoneRecipiesBtns';
 import DoneRecipiesTags from './DoneRecipiesTags';
-import doneRecipesIcon from '../../images/doneRecipesIcon.png';
 import { DoneRecipe } from '../../types';
 
 function DoneRecipes() {

@@ -9,6 +9,7 @@ import cocktailEmoji from '../images/cocktailEmoji.png';
 import shakeEmoji from '../images/shakeEmoji.png';
 import otherEmojiDrink from '../images/otherEmojiDrink.png';
 import cocoaEmojiDrink from '../images/cocoaEmojiDrink.png';
+import defaultIcon from '../images/defaultIcon.svg';
 
 export const defineImageCategory = (category: string) => {
   switch (category) {
@@ -33,6 +34,6 @@ export const defineImageCategory = (category: string) => {
     case 'Cocoa':
       return cocoaEmojiDrink;
     default:
-      return '';
+      return defaultIcon;
   }
 };
