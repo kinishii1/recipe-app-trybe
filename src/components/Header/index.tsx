@@ -10,6 +10,7 @@ import logoAppSM2 from '../../images/logoAppSM2.svg';
 import drinkIcon from '../../images/drinkIcon.svg';
 import mealIcon from '../../images/mealIcon.svg';
 import doneRecipesIcon from '../../images/doneRecipesIcon.png';
+import favoriteIcon from '../../images/favoriteIcon.svg';
 
 function Header({ title, withSearchIcons }: HeaderProps) {
   const [showSearchBar, setShowSearchBar] = useState<boolean>(false);
@@ -21,6 +22,8 @@ function Header({ title, withSearchIcons }: HeaderProps) {
         return drinkIcon;
       case 'Done Recipes':
         return doneRecipesIcon;
+      case 'Favorite Recipes':
+        return favoriteIcon;
       default:
         return '';
     }

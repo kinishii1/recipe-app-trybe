@@ -1,4 +1,5 @@
 import './styles.css';
+import '../DoneRecipes/styles.css';
 import FavoriteRecipesBtns from './FavoriteRecipesBtns';
 import FavoriteRecipesCard from './FavoriteRecipesCard';
 import { useFavoriteRecipies } from '../../hooks/useFavoriteRecipies';
@@ -14,30 +15,30 @@ function FavoriteRecipes() {
   } = useFavoriteRecipies();
   return (
     <div>
-      <FavoriteRecipesBtns
-        handleFilterMeal={ handleFilterMeal }
-        handleFilterDrink={ handleFilterDrink }
-        handleFilterAll={ handleFilterAll }
-      />
-      <div>
-        {favoriteSorted.length > 0
-          && favoriteRecipes.map((recipe: any, index: any) => (
+      <div className='done-recipes-container'>
+        <FavoriteRecipesBtns
+          handleFilterMeal={handleFilterMeal}
+          handleFilterDrink={handleFilterDrink}
+          handleFilterAll={handleFilterAll}
+        />
+        {favoriteSorted.length > 0 &&
+          favoriteRecipes.map((recipe: any, index: any) => (
             <FavoriteRecipesCard
-              favoriteRecipes={ favoriteSorted }
-              key={ recipe.id }
-              recipe={ recipe }
-              index={ index }
-              handleFavoriteClick={ handleFavoriteClick }
+              favoriteRecipes={favoriteSorted}
+              key={recipe.id}
+              recipe={recipe}
+              index={index}
+              handleFavoriteClick={handleFavoriteClick}
             />
           ))}
-        {favoriteSorted.length === 0
-          && favoriteRecipes.map((recipe: any, index: any) => (
+        {favoriteSorted.length === 0 &&
+          favoriteRecipes.map((recipe: any, index: any) => (
             <FavoriteRecipesCard
-              favoriteRecipes={ favoriteRecipes }
-              key={ recipe.id }
-              recipe={ recipe }
-              index={ index }
-              handleFavoriteClick={ handleFavoriteClick }
+              favoriteRecipes={favoriteRecipes}
+              key={recipe.id}
+              recipe={recipe}
+              index={index}
+              handleFavoriteClick={handleFavoriteClick}
             />
           ))}
       </div>

@@ -19,7 +19,7 @@ function FavoriteRecipesCard({
 }: Props) {
   const { handleShareClick, copyStatus } = useShare();
   return (
-    <div key={ recipe.id }>
+    <div className="recipe-card" key={ recipe.id }>
       <Link to={ `/${recipe.type}s/${recipe.id}` }>
         <img
           className="horizontal-image"
