@@ -10,14 +10,20 @@ export const useDoneRecipes = () => {
   }, []);
 
   const handleFilterMeal = () => {
-    const filtered = doneRecipes.filter(
+    const savedDoneRecipes = JSON.parse(
+      localStorage.getItem('doneRecipes') ?? '[]',
+    );
+    const filtered = savedDoneRecipes.filter(
       (recipe: any) => recipe.type === 'meal',
     );
     setDoneRecipes(filtered);
   };
 
   const handleFilterDrink = () => {
-    const filtered = doneRecipes.filter(
+    const savedDoneRecipes = JSON.parse(
+      localStorage.getItem('doneRecipes') ?? '[]',
+    );
+    const filtered = savedDoneRecipes.filter(
       (recipe: any) => recipe.type === 'drink',
     );
     setDoneRecipes(filtered);

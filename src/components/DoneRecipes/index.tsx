@@ -5,24 +5,26 @@ import shareIcon from '../../images/shareIcon.svg';
 import './styles.css';
 import DoneRecipiesBtns from './DoneRecipiesBtns';
 import DoneRecipiesTags from './DoneRecipiesTags';
-import { DoneRecipeData } from '../../types';
+import doneRecipesIcon from '../../images/doneRecipesIcon.png';
+import { DoneRecipe } from '../../types';
 
 function DoneRecipes() {
   const { handleShareClick, copyStatus } = useShare();
-  const { doneRecipes,
+  const {
+    doneRecipes,
     handleFilterMeal,
     handleFilterDrink,
     handleFilterAll } = useDoneRecipes();
   return (
     <div>
-      <DoneRecipiesBtns
-        handleFilterAll={ handleFilterAll }
-        handleFilterMeal={ handleFilterMeal }
-        handleFilterDrink={ handleFilterDrink }
-      />
       <div className="done-recipes-container">
-        {doneRecipes.map((recipe: DoneRecipeData, index: any) => (
-          <div key={ recipe.id }>
+        <DoneRecipiesBtns
+          handleFilterAll={ handleFilterAll }
+          handleFilterMeal={ handleFilterMeal }
+          handleFilterDrink={ handleFilterDrink }
+        />
+        {doneRecipes.map((recipe: DoneRecipe, index: any) => (
+          <div className="recipe-card" key={ recipe.id }>
             <Link to={ `/${recipe.type}s/${recipe.id}` }>
               <img
                 className="horizontal-image"
@@ -31,18 +33,20 @@ function DoneRecipes() {
                 alt={ recipe.name }
               />
             </Link>
-            <p data-testid={ `${index}-horizontal-top-text` }>
+            <h3 data-testid={ `${index}-horizontal-top-text` }>
               {recipe.type === 'meal'
                 ? `${recipe.nationality} - ${recipe.category}`
                 : recipe.alcoholicOrNot}
-            </p>
+            </h3>
             <Link to={ `/${recipe.type}s/${recipe.id}` }>
               <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
             </Link>
-            <p data-testid={ `${index}-horizontal-done-date` }>
-              {recipe.doneDate}
-            </p>
-            <DoneRecipiesTags recipe={ recipe } index={ index } />
+            <h4 data-testid={ `${index}-horizontal-done-date` }>
+              {`Done Date: ${recipe.doneDate}`}
+            </h4>
+            <div className="tags-container">
+              <DoneRecipiesTags recipe={ recipe } index={ index } />
+            </div>
             <button
               type="button"
               className="horizontal-share-btn"
@@ -57,13 +61,6 @@ function DoneRecipes() {
                   alt="share"
                 />
               )}
-            </button>
-            <button
-              type="button"
-              className="horizontal-favorite-btn"
-              data-testid={ `${index}-horizontal-favorite-btn` }
-            >
-              Favorite
             </button>
           </div>
         ))}

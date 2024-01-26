@@ -1,3 +1,7 @@
+import mealEmojiFooter from '../../images/mealEmojiFooter.png';
+import drinkEmojiFooter from '../../images/drinkEmojiFooter.png';
+import allEmoji from '../../images/allEmoji.svg';
+
 type Props = {
   handleFilterAll: () => void;
   handleFilterMeal: () => void;
@@ -16,21 +20,24 @@ function DoneRecipiesBtns({
         data-testid="filter-by-all-btn"
         onClick={ handleFilterAll }
       >
-        All
+        <img src={ allEmoji } alt="" />
+        <p>All</p>
       </button>
       <button
         type="button"
         data-testid="filter-by-meal-btn"
         onClick={ handleFilterMeal }
       >
-        Meals
+        <img src={ mealEmojiFooter } alt="" />
+        <p>Meals</p>
       </button>
       <button
         type="button"
         data-testid="filter-by-drink-btn"
         onClick={ handleFilterDrink }
       >
-        Drinks
+        <img src={ drinkEmojiFooter } alt="" />
+        <p>Drinks</p>
       </button>
     </div>
   );

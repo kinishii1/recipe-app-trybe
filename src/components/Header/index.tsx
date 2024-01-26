@@ -9,9 +9,22 @@ import logoAppSM from '../../images/logoAppSM.svg';
 import logoAppSM2 from '../../images/logoAppSM2.svg';
 import drinkIcon from '../../images/drinkIcon.svg';
 import mealIcon from '../../images/mealIcon.svg';
+import doneRecipesIcon from '../../images/doneRecipesIcon.png';
 
 function Header({ title, withSearchIcons }: HeaderProps) {
   const [showSearchBar, setShowSearchBar] = useState<boolean>(false);
+  const headerImage = () => {
+    switch (title) {
+      case 'Meals':
+        return mealIcon;
+      case 'Drinks':
+        return drinkIcon;
+      case 'Done Recipes':
+        return doneRecipesIcon;
+      default:
+        return '';
+    }
+  };
   return (
     <>
       <div className="header-container">
@@ -32,11 +45,7 @@ function Header({ title, withSearchIcons }: HeaderProps) {
         </div>
       </div>
       <div className="title-hero">
-        {title === 'Drinks' ? (
-          <img src={ drinkIcon } alt="" />
-        ) : (
-          <img src={ mealIcon } alt="" />
-        )}
+        <img src={ headerImage() } alt="" />
         <h1 data-testid="page-title">
           {title}
         </h1>
