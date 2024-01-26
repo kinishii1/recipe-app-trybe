@@ -23,7 +23,7 @@ function Recipes({ isDrink }: { isDrink: boolean }) {
           <img src={ isDrink ? allEmojiDrink : allEmoji } alt="" />
           All
         </button>
-        {categories.map((category, index) => (
+        {categories?.map((category, index) => (
           <CategoryBtn
             key={ index }
             category={ category }
@@ -33,7 +33,7 @@ function Recipes({ isDrink }: { isDrink: boolean }) {
         ))}
       </div>
       <div className="recipe-list">
-        {recipes.map((recipe, index) => (
+        {recipes?.map((recipe, index) => (
           <RecipeCard recipe={ recipe } index={ index } key={ recipe.id } />
         ))}
       </div>

@@ -12,7 +12,7 @@ export const useRecipe = (isDrink: boolean) => {
     const fetchRecipes = async () => {
       const response = await fetch(endpoint);
       const data = await response.json();
-      const first12Recipes = data[param].slice(0, 12);
+      const first12Recipes = data[param]?.slice(0, 12);
       setRecipes(first12Recipes);
     };
     fetchRecipes();

@@ -1,16 +1,16 @@
 import { Link } from 'react-router-dom';
-import drinkEmojiFooter from '../../images/drinkEmojiFooter.png';
-import mealEmojiFooter from '../../images/mealEmojiFooter.png';
+import drinkIconFooter from '../../images/drinkIconFooter.png';
+import mealIconFooter from '../../images/mealIconFooter.png';
 import './styles.css';
 
 function Footer() {
   return (
     <div className="footer" data-testid="footer">
       <Link to="/drinks">
-        <img src={ drinkEmojiFooter } alt="drink" data-testid="drinks-bottom-btn" />
+        <img src={ drinkIconFooter } alt="drink" data-testid="drinks-bottom-btn" />
       </Link>
       <Link to="/meals">
-        <img src={ mealEmojiFooter } alt="drink" data-testid="meals-bottom-btn" />
+        <img src={ mealIconFooter } alt="drink" data-testid="meals-bottom-btn" />
       </Link>
     </div>
   );

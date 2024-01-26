@@ -13,7 +13,8 @@ export const useCategory = (isDrink: boolean) => {
     const fetchCategories = async () => {
       const response = await fetch(endpoint);
       const data = await response.json();
-      const first5Categories = data[param].slice(0, 5);
+      console.log(data);
+      const first5Categories = data[param]?.slice(0, 5);
       setCategories(first5Categories);
     };
     fetchCategories();

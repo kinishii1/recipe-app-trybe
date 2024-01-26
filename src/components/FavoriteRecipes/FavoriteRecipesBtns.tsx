@@ -1,5 +1,5 @@
-import mealEmojiFooter from '../../images/mealEmojiFooter.png';
-import drinkEmojiFooter from '../../images/drinkEmojiFooter.png';
+import mealEmojiFooter from '../../images/mealIconFooter.png';
+import drinkEmojiFooter from '../../images/drinkIconFooter.png';
 import allEmoji from '../../images/allEmoji.svg';
 
 type Props = {
