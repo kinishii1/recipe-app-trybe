@@ -52,4 +52,13 @@ describe('Header', () => {
     const title = document.querySelector('h1');
     expect(title).toBeInTheDocument();
   });
+  it('renders the correct title Favorite Recipes', () => {
+    render(
+      <MemoryRouter>
+        <Header title="" withSearchIcons />
+      </MemoryRouter>,
+    );
+    const title = document.querySelector('h1');
+    expect(title).toBeInTheDocument();
+  });
 });
