@@ -163,13 +163,23 @@ describe('Recipe Details Drinks with inProgressData', () => {
       ImageSrc.WHITE_HEART,
     );
   });
+});
 
-  it('testing without isDrink', async () => {
+describe('Recipe Details Drinks with inProgressData', () => {
+  beforeAll(() => {
+    localStorage.setItem(
+      'inProgressRecipes',
+      JSON.stringify(inProgressRecipes),
+    );
+  });
+
+  it('testing with isDrink', async () => {
     render(
       <MemoryRouter>
         <RecipeDetails isDrink={ false } />
       </MemoryRouter>,
     );
+
     const favoriteBtn = screen.getByTestId(TestIds.FAVORITE_BTN);
     await userEvent.click(favoriteBtn);
     expect(favoriteBtn).toHaveAttribute(

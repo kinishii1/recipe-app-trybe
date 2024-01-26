@@ -47,11 +47,11 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
     if (isDrink) {
       fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
         .then((response) => response.json())
-        .then((data) => setRecipe(data.drinks[0]));
+        .then((data) => setRecipe(data?.drinks[0]));
       fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
         .then((response) => response.json())
         .then((data) => {
-          const first6Recomendations = data.meals.slice(0, 6);
+          const first6Recomendations = data?.meals.slice(0, 6);
           console.log(first6Recomendations);
           setRecomendations(first6Recomendations);
         });
@@ -59,11 +59,11 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
     }
     fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
       .then((response) => response.json())
-      .then((data) => setRecipe(data.meals[0]));
+      .then((data) => setRecipe(data?.meals[0]));
     fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
       .then((response) => response.json())
       .then((data) => {
-        const first6Recomendations = data.drinks.slice(0, 6);
+        const first6Recomendations = data?.drinks.slice(0, 6);
         console.log(first6Recomendations);
         setRecomendations(first6Recomendations);
       });
