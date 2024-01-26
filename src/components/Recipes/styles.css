@@ -28,47 +28,47 @@
 }
 
 .recipes-category-container img {
-  pointer-events: none;
+  border: 2px solid #fcc436;
   border-radius: 50%;
-  border: 2px solid #FCC436;
-  padding: 5px;
-  width: 40px;
   height: 40px;
+  padding: 5px;
+  pointer-events: none;
+  width: 40px;
   z-index: -1;
 }
 
 .recipe-list {
-  margin-top: 10px;
-  margin-bottom: 50px;
-  width: 100%;
   display: flex;
   flex-wrap: wrap;
-  padding: 20px;
   justify-content: space-between;
+  margin-bottom: 50px;
+  margin-top: 10px;
+  padding: 20px;
+  width: 100%;
 }
 
 .recipe-list div {
-  flex-basis: calc(50% - 20px);
+  background-color: white;
   border-radius: 5px;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.75);
+  flex-basis: calc(50% - 20px);
   margin-bottom: 20px;
-  background-color: #fff;
-  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
 }
 
 .recipe-list a {
+  color: #41197f;
   text-decoration: none;
-  color: #41197F;
 }
 
 .recipe-list h1 {
-  margin-top: 10px;
   font-size: 16px;
-  text-align: left;
+  margin-top: 10px;
   padding: 0 10px;
+  text-align: left;
 }
 
 .recipe-list img {
-  width: 100%;
-  object-fit: cover;
   border-radius: 5px 5px 0 0;
+  object-fit: cover;
+  width: 100%;
 }

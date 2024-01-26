@@ -23,32 +23,32 @@ function Profile() {
     }
   };
   return (
-    <div className='profile-container'>
-      <h3 data-testid='profile-email'>{email}</h3>
+    <div className="profile-container">
+      <h3 data-testid="profile-email">{email}</h3>
 
-      <div className='profile-container-btns'>
+      <div className="profile-container-btns">
         <button
-          name='done-recipes'
-          data-testid='profile-done-btn'
-          onClick={handleClick}
+          name="done-recipes"
+          data-testid="profile-done-btn"
+          onClick={ handleClick }
         >
-          <img src={doneIcon} alt="" />
+          <img src={ doneIcon } alt="" />
           Done Recipes
         </button>
         <button
-          name='favorite-recipes'
-          data-testid='profile-favorite-btn'
-          onClick={handleClick}
+          name="favorite-recipes"
+          data-testid="profile-favorite-btn"
+          onClick={ handleClick }
         >
-          <img src={favoriteIcon} alt="" />
+          <img src={ favoriteIcon } alt="" />
           Favorite Recipes
         </button>
         <button
-          name='logout'
-          data-testid='profile-logout-btn'
-          onClick={handleClick}
+          name="logout"
+          data-testid="profile-logout-btn"
+          onClick={ handleClick }
         >
-          <img src={logoutIcon} alt="" />
+          <img src={ logoutIcon } alt="" />
           Logout
         </button>
       </div>

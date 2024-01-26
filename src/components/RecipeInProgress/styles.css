@@ -1,57 +1,55 @@
 .ingredients-list {
-  width: 90%;
-  margin: 20px auto;
+  align-items: center;
+  border: 1px solid #b1b1b1;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  border: 1px solid #B1B1B1;
   font-size: 14px;
   font-weight: 400;
-  padding: 10px;
   gap: 10px;
+  margin: 20px auto;
+  padding: 10px;
+  width: 90%;
 }
 
 .ingredients-list label {
   margin: auto;
 }
 
-.ingredients-list input[type="checkbox"] {
-  -webkit-appearance: none;
-  -moz-appearance: none;
+.ingredients-list [ type = 'checkbox' ] {
   appearance: none;
-  width: 25px;
-  height: 25px;
   background-color: white;
-  border: 2px solid #FCC436;
+  border: 2px solid #fcc436;
   border-radius: 5px;
+  cursor: pointer;
+  height: 25px;
+  left: 0;
   margin: 5px 10px;
   position: relative;
   top: 9px;
-  left: 0px;
-  cursor: pointer;
+  width: 25px;
 }
 
-.ingredients-list input[type="checkbox"]::before {
-  content: "";
-  top: 3px;
-  left: 3px;
-  position: absolute;
-  width: 0;
-  height: 0;
+.ingredients-list [ type = 'checkbox' ]:before {
+  background-color: #fcc436;
   border-radius: 50%;
-  background-color: #FCC436;
+  content: '';
+  height: 0;
+  left: 3px;
   opacity: 0;
+  position: absolute;
+  top: 3px;
   transition: all 0.3s ease;
+  width: 0;
 }
 
-.ingredients-list input[type="checkbox"]:checked::before {
+.ingredients-list [ type = 'checkbox' ]:checked:before {
+  height: 15px;
   opacity: 1;
   width: 15px;
-  height: 15px;
 }
 
 .start-recipe-btn:disabled {
-  background-color: #cccccc;
+  background-color: #ccc;
   color: #353535;
   cursor: not-allowed;
 }

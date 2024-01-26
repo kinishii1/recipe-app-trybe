@@ -1,24 +1,24 @@
 .horizontal-image {
+  border: #f56715 5px solid;
   border-radius: 50%;
   height: 100%;
   object-fit: cover;
   width: 100%;
-  border: #f56715 5px solid;
 }
 
 .done-recipes-header {
+  align-items: center;
   display: flex;
   justify-content: space-between;
-  align-items: center;
   margin-bottom: 20px;
 }
 
 .done-recipes-btns {
+  align-items: center;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  margin: 0 auto 20px;
   width: 90%;
-  margin: 0 auto 20px auto; 
 }
 
 .done-recipes-btns button {
@@ -26,7 +26,7 @@
   border: none;
   color: white;
   font-size: 20px;
-  font-weight: bold;
+  font-weight: 700;
   transition: transform 0.8s ease;
 }
 
@@ -35,66 +35,66 @@
 }
 
 .done-recipes-btns img {
-  width: 60px;
-  height: 60px;
+  border: 2px solid #fcc436;
   border-radius: 50%;
-  border: 2px solid #FCC436;
+  height: 60px;
   padding: 5px;
+  width: 60px;
 }
 
 .done-recipes-btns p {
+  color: #797d86;
   font-size: 20px;
-  font-weight: bold;
-  color: #797D86;
+  font-weight: 700;
 }
 
 .recipe-card {
+  align-items: center;
+  background: linear-gradient(to right, #fcc436, #41197f);
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  width: 90%;
-  margin: 0 auto 20px auto;
-  background: linear-gradient(to right, #FCC436, #41197F); /* Replace with the gradient you want */
-  border-radius: 10px;
-  padding: 10px;
   gap: 10px;
+  justify-content: space-between;
+  margin: 0 auto 20px;
+  padding: 10px;
   position: relative;
+  width: 90%;
 }
 
 .recipe-card h3 {
-  margin-top: 10px;
+  color: #1a1b1c;
   font-size: 20px;
-  font-weight: bold;
-  color: #1A1B1C;
+  font-weight: 700;
+  margin-top: 10px;
 }
 
 .recipe-card a {
-  text-decoration: none;
   color: #baf2ff;
+  text-decoration: none;
 }
 
 .recipe-card h4 {
+  color: #1a1b1c;
   font-size: 14px;
-  font-weight: bold;
-  color: #1A1B1C;
+  font-weight: 700;
   text-align: center;
   width: 100%;
 }
 
 .tags-container {
+  align-items: center;
   display: flex;
   justify-content: space-evenly;
-  align-items: center;
   width: 100%;
 }
 
 .tags-container span {
-  font-size: 16px;
-  font-weight: bold;
-  color: #797D86;
-  background-color: #D9D9D9;
+  background-color: #d9d9d9;
   border-radius: 5px;
+  color: #797d86;
+  font-size: 16px;
+  font-weight: 700;
   padding: 5px 15px;
 }
 
@@ -107,24 +107,24 @@
 }
 
 .horizontal-share-btn p {
-  font-size: 20px;
-  font-weight: bold;
-  color: #41197F;
-  background-color: #FCC436;
+  background-color: #fcc436;
   border-radius: 5px;
+  color: #41197f;
+  font-size: 20px;
+  font-weight: 700;
   padding: 5px 15px;
 }
 
 .horizontal-share-btn img {
-  width: 40px;
   height: 40px;
+  width: 40px;
 }
 
 .horizontal-favorite-btn {
   background-color: transparent;
   border: none;
-  position: absolute;
   left: 12px;
+  position: absolute;
   top: 12px;
 }
 
