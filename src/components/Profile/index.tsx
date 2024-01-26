@@ -1,8 +1,13 @@
 import { useNavigate } from 'react-router-dom';
+import './styles.css';
+import doneIcon from '../../images/doneIcon.png';
+import favoriteIcon from '../../images/favoriteIcon.svg';
+import logoutIcon from '../../images/logoutIcon.png';
 
 function Profile() {
   const navigate = useNavigate();
-  const email = localStorage.getItem('user');
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  const { email } = user;
 
   const handleClick = ({ target }: any) => {
     const { name } = target;
@@ -18,26 +23,35 @@ function Profile() {
     }
   };
   return (
-    <div>
-      <h1>Profile</h1>
-      <p data-testid="profile-email">{email}</p>
-      <button
-        name="done-recipes"
-        data-testid="profile-done-btn"
-        onClick={ handleClick }
-      >
-        Done Recipes
-      </button>
-      <button
-        name="favorite-recipes"
-        data-testid="profile-favorite-btn"
-        onClick={ handleClick }
-      >
-        Favorite Recipes
-      </button>
-      <button name="logout" data-testid="profile-logout-btn" onClick={ handleClick }>
-        Logout
-      </button>
+    <div className='profile-container'>
+      <h3 data-testid='profile-email'>{email}</h3>
+
+      <div className='profile-container-btns'>
+        <button
+          name='done-recipes'
+          data-testid='profile-done-btn'
+          onClick={handleClick}
+        >
+          <img src={doneIcon} alt="" />
+          Done Recipes
+        </button>
+        <button
+          name='favorite-recipes'
+          data-testid='profile-favorite-btn'
+          onClick={handleClick}
+        >
+          <img src={favoriteIcon} alt="" />
+          Favorite Recipes
+        </button>
+        <button
+          name='logout'
+          data-testid='profile-logout-btn'
+          onClick={handleClick}
+        >
+          <img src={logoutIcon} alt="" />
+          Logout
+        </button>
+      </div>
     </div>
   );
 }

@@ -24,6 +24,8 @@ function Header({ title, withSearchIcons }: HeaderProps) {
         return doneRecipesIcon;
       case 'Favorite Recipes':
         return favoriteIcon;
+      case 'Profile':
+        return profile;
       default:
         return '';
     }
