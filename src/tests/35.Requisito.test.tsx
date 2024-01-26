@@ -137,13 +137,24 @@ describe('Recipe Details Drinks', () => {
 });
 
 describe('Recipe Details Drinks with inProgressData', () => {
+  beforeEach(() => {
+    vi.spyOn(global, 'fetch')
+      .mockResolvedValueOnce({
+        json: () => Promise.resolve(DrinkData),
+      } as any)
+      .mockResolvedValueOnce({
+        json: () => Promise.resolve(MealData),
+      } as any);
+  });
   beforeAll(() => {
     localStorage.setItem(
       'inProgressRecipes',
       JSON.stringify(inProgressRecipes),
     );
   });
-
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
   it('testing with isDrink', async () => {
     render(
       <MemoryRouter>
@@ -165,15 +176,26 @@ describe('Recipe Details Drinks with inProgressData', () => {
   });
 });
 
-describe('Recipe Details Drinks with inProgressData', () => {
+describe('Recipe Details Meals with inProgressData', () => {
+  beforeEach(() => {
+    vi.spyOn(global, 'fetch')
+      .mockResolvedValueOnce({
+        json: () => Promise.resolve(MealData),
+      } as any)
+      .mockResolvedValueOnce({
+        json: () => Promise.resolve(DrinkData),
+      } as any);
+  });
   beforeAll(() => {
     localStorage.setItem(
       'inProgressRecipes',
       JSON.stringify(inProgressRecipes),
     );
   });
-
-  it('testing with isDrink', async () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+  it('testing without isDrink', async () => {
     render(
       <MemoryRouter>
         <RecipeDetails isDrink={ false } />
