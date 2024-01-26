@@ -12,6 +12,13 @@
   margin: 0;
 }
 
+.category-icon {
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
 /* Start BTN */
 
 .start-recipe-btn {

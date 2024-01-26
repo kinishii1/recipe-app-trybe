@@ -1,12 +1,7 @@
 import RecipeDetails from '../components/RecipeDetails';
 
 function DrinkDetails() {
-  return (
-    <>
-      <div>DrinkDetails</div>
-      <RecipeDetails isDrink />
-    </>
-  );
+  return <RecipeDetails isDrink />;
 }
 
 export default DrinkDetails;

@@ -1,7 +1,57 @@
 .ingredients-list {
-  align-items: center;
+  width: 90%;
+  margin: 20px auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  margin: 0 0 100px;
+  align-items: center;
+  border: 1px solid #B1B1B1;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 10px;
+  gap: 10px;
+}
+
+.ingredients-list label {
+  margin: auto;
+}
+
+.ingredients-list input[type="checkbox"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  background-color: white;
+  border: 2px solid #FCC436;
+  border-radius: 5px;
+  margin: 5px 10px;
+  position: relative;
+  top: 9px;
+  left: 0px;
+  cursor: pointer;
+}
+
+.ingredients-list input[type="checkbox"]::before {
+  content: "";
+  top: 3px;
+  left: 3px;
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background-color: #FCC436;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.ingredients-list input[type="checkbox"]:checked::before {
+  opacity: 1;
+  width: 15px;
+  height: 15px;
+}
+
+.start-recipe-btn:disabled {
+  background-color: #cccccc;
+  color: #353535;
+  cursor: not-allowed;
 }

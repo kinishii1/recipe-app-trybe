@@ -91,7 +91,11 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
             <p data-testid="recipe-category">
               {recipe.strAlcoholic || recipe.strCategory}
             </p>
-            <img src={ defineImageCategory(recipe.strCategory) } alt="" />
+            <img
+              className="category-icon"
+              src={ defineImageCategory(recipe.strCategory) }
+              alt=""
+            />
           </div>
           <div className="recipe-details-header_btns">
             <button
@@ -131,23 +135,30 @@ function RecipeDetails({ isDrink }: { isDrink: boolean }) {
         recipe={ recipe }
       />
       <h1>Instructions</h1>
-      <p data-testid="instructions" className="instructions">{recipe.strInstructions}</p>
+      <p data-testid="instructions" className="instructions">
+        {recipe.strInstructions}
+      </p>
 
-      <h1
-        style={ {
-          margin: '10px 0 20px 0',
-        } }
-      >
-        Video
-      </h1>
-      <iframe
-        width="360"
-        height="215"
-        src={ newUrl }
-        title="YouTube video player"
-        allowFullScreen
-        data-testid="video"
-      />
+      {newUrl !== '' && (
+        <>
+          <h1
+            style={ {
+              margin: '10px 0 20px 0',
+            } }
+          >
+            Video
+          </h1>
+          <iframe
+            width="360"
+            height="215"
+            src={ newUrl }
+            title="YouTube video player"
+            allowFullScreen
+            data-testid="video"
+          />
+        </>
+      )}
+
       <h1
         style={ {
           marginTop: '20px',
