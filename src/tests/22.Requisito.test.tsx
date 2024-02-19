@@ -2,7 +2,6 @@ import userEvent from '@testing-library/user-event';
 import { vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import Meals from '../pages/Meals';
 import { DrinkCategoriesData, DrinkData, MealCategoriesData, MealData } from './mocks/data';
 import App from '../App';
 
